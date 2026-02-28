@@ -73,6 +73,7 @@ jobs:
           ln -sf ../CONTRIBUTING.md    docs_src/CONTRIBUTING.md
           ln -sf ../CHANGELOG.md       docs_src/CHANGELOG.md
           ln -sf ../references.md      docs_src/references.md
+          ln -sf ../LICENSE            docs_src/LICENSE
           ln -sf ../learn              docs_src/learn
           ln -sf ../prompts            docs_src/prompts
           ln -sf ../docs/assets        docs_src/assets
@@ -81,7 +82,7 @@ jobs:
         run: |
           errors=0
           for target in docs_src/index.md docs_src/GETTING-STARTED.md docs_src/CONTRIBUTING.md \
-                         docs_src/CHANGELOG.md docs_src/references.md docs_src/learn docs_src/prompts; do
+                         docs_src/CHANGELOG.md docs_src/references.md docs_src/LICENSE docs_src/learn docs_src/prompts; do
             if [ ! -e "$target" ]; then
               echo "ERROR: Symlink target does not resolve: $target"
               errors=$((errors + 1))

@@ -77,7 +77,7 @@ nav:
     - Meta-Prompting: learn/meta-prompting.md
     - CI/CD Integration: learn/ci-cd-integration.md
     - Cookbook (20 Recipes): learn/cookbook.md
-    - Prompt Builder: docs/index.html
+    - Prompt Builder: https://kunalsuri.github.io/prompt-engineering-playbook/docs/
     - Glossary: learn/glossary.md
 
   - Comparisons:

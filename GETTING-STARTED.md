@@ -27,6 +27,7 @@ VS Code's GitHub Copilot recognizes special Markdown files in your repository th
 mode: 'agent'           # Enables agent mode: Copilot can read files,
                          # run commands, and take multi-step actions.
 description: 'Create a new React component with tests and Storybook story'
+version: '1.0.0'
 ---
 ```
 

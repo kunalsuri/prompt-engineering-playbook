@@ -16,7 +16,7 @@ This is the **Prompt Engineering Playbook** — an educational repository contai
 
 - Use ATX-style Markdown headers (`#`, `##`, `###`). Do not skip header levels.
 - Use fenced code blocks with language identifiers.
-- Internal links use relative paths (e.g., `[Module 3](learn/03-patterns.md)`).
+- Internal links use relative paths (e.g., `[Module 3](../learn/03-patterns.md)`).
 - Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification for commit messages.
 
 ## Repository Structure

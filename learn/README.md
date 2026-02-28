@@ -134,4 +134,4 @@ All empirical claims are cited using entries in [`references.md`](../references.
 
 ---
 
-[← Back to main README](../index.md) · [Start Module 1 →](01-introduction.md)
+[← Back to main README](../README.md) · [Start Module 1 →](01-introduction.md)

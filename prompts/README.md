@@ -87,7 +87,8 @@ Files in [`shared/`](shared/) apply across all stacks. These should be copied on
 
 | File | Purpose |
 |------|---------|
-| [`codacy.instructions.md`](shared/codacy.instructions.md) | Code quality standards, complexity thresholds, security gates || [`evaluation-template.md`](shared/evaluation-template.md) | Four-part prompt evaluation framework (manual rubric, automated pipeline, LLM-as-Judge, A/B testing) |
+| [`codacy.instructions.md`](shared/codacy.instructions.md) | Code quality standards, complexity thresholds, security gates |
+| [`evaluation-template.md`](shared/evaluation-template.md) | Four-part prompt evaluation framework (manual rubric, automated pipeline, LLM-as-Judge, A/B testing) |
 | [`readme-generator-base.md`](shared/readme-generator-base.md) | Shared base for all README-generator prompts (referenced via `#file:` directive) |
 | [`prompt-registry.schema.json`](shared/prompt-registry.schema.json) | JSON Schema for validating `.prompt.md` YAML frontmatter |
 ---
@@ -113,4 +114,4 @@ For the full walkthrough including customization and troubleshooting, see [GETTI
 
 ---
 
-[← Back to main README](../index.md)
+[← Back to main README](../README.md)

@@ -135,20 +135,21 @@ All Markdown files must render correctly on GitHub and in VS Code's built-in pre
 - Use fenced code blocks with language identifiers (` ```python `, ` ```bash `, ` ```json `).
 - Wrap prose at a reasonable line length (80–120 characters) for readable diffs. Do not use hard wraps within paragraphs if your editor supports soft wrapping.
 - Use `---` (horizontal rule) to separate major sections.
-- Internal links should use relative paths: `[Module 3](03-patterns.md)`, not absolute URLs.
+- Internal links should use relative paths: `[Module 3](learn/03-patterns.md)`, not absolute URLs.
 
 ### Prompt Files (`.prompt.md`)
 
-Prompt files must include YAML frontmatter with at least `mode` and `description` fields:
+Prompt files must include YAML frontmatter with `mode`, `description`, and `version` fields:
 
 ```yaml
 ---
 mode: 'agent'
 description: 'Brief description of what this prompt does'
+version: '1.0.0'
 ---
 ```
 
-The body of the prompt file should follow the structural patterns established by the existing templates: clear role assignment, explicit constraints, defined output format, and anti-pattern guidance where applicable. See Module 3 (`03-patterns.md`) for the pattern vocabulary.
+The body of the prompt file should follow the structural patterns established by the existing templates: clear role assignment, explicit constraints, defined output format, and anti-pattern guidance where applicable. See Module 3 (`learn/03-patterns.md`) for the pattern vocabulary.
 
 ### Citations and References
 
@@ -164,7 +165,7 @@ This section walks you through creating a new production-ready prompt template f
 
 ### 1. Choose a Stack Directory
 
-Prompt files live under `prompts/<stack>/prompts/`. Current stacks:
+Prompt files typically live under `prompts/<stack>/prompts/`. Current stacks:
 
 | Stack | Directory |
 |-------|-----------|
@@ -172,7 +173,7 @@ Prompt files live under `prompts/<stack>/prompts/`. Current stacks:
 | React + TypeScript | `prompts/react-typescript/prompts/` |
 | React + FastAPI | `prompts/react-fastapi/prompts/` |
 | Node.js + TypeScript | `prompts/nodejs-typescript/prompts/` |
-| Shared (stack-agnostic) | `prompts/shared/prompts/` |
+| Shared (stack-agnostic resources) | `prompts/shared/` |
 
 To add a new stack, create the directory tree, a `copilot-instructions.md`, and a `README.md` following the pattern in an existing stack folder.
 
@@ -220,7 +221,7 @@ Additional sections (`# Constraints`, `# Examples`, `# Anti-Patterns`) are stron
 Directly below the YAML frontmatter closing `---`, add a blockquote that links to the curriculum module explaining the pattern used in the prompt:
 
 ```markdown
-> **Learn why this works:** [Pattern name](../../../learn/03-patterns.md#anchor-to-specific-section)
+> **Learn why this works:** Pattern name → ../../../learn/03-patterns.md#<real-anchor>
 ```
 
 To find the correct anchor: open `learn/03-patterns.md` (or whichever module is most relevant), locate the heading, convert it to a GitHub-slug anchor:
