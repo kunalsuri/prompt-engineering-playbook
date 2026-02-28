@@ -8,7 +8,7 @@ By the end of this module, you will be able to articulate what prompt engineerin
 
 ## 1.1 What Is Prompt Engineering?
 
-Prompt engineering is the disciplined practice of designing, structuring, and iterating on natural-language inputs to large language models (LLMs) in order to elicit accurate, useful, and reproducible outputs. Although the term may suggest a narrow, mechanical activity, it is better understood as a form of **human–AI communication design** — one that draws on principles from technical writing, cognitive science, and software engineering.
+Prompt engineering is the disciplined practice of designing, structuring, and iterating on natural-language inputs to large language models (LLMs) — built on the Transformer architecture [Vaswani2017] — in order to elicit accurate, useful, and reproducible outputs. Although the term may suggest a narrow, mechanical activity, it is better understood as a form of **human–AI communication design** — one that draws on principles from technical writing, cognitive science, and software engineering.
 
 Consider the analogy of a search engine query. A novice user might type "fix my code," while an experienced user types `python TypeError NoneType subscriptable pandas DataFrame merge`. The difference in output quality is dramatic, and the underlying skill is the same: knowing how to specify intent precisely enough that a system can act on it. Prompt engineering applies this same principle to LLMs, but with far richer expressive possibilities — because LLMs accept and produce natural language, the design space for prompts is essentially unbounded.
 

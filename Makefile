@@ -2,7 +2,7 @@
 # Common development tasks.  Run `make help` to see all targets.
 #
 # Prerequisites: Python venv at .venv/ (created by scripts/python/setup.sh)
-#   or run: python -m venv .venv && .venv/bin/pip install -r requirements.txt
+#   or run: python -m venv .venv && .venv/bin/pip install -r requirements-docs.txt
 
 .DEFAULT_GOAL := help
 VENV          := .venv/bin
@@ -19,8 +19,9 @@ help:           ## Show this help message
 # ─── Install ─────────────────────────────────────────────────────────────────
 
 .PHONY: install
-install:        ## Install / refresh docs dependencies (pins mkdocs-material to avoid MkDocs 2.0 warning)
+install:        ## Install / refresh docs + dev dependencies
 	$(VENV)/pip install -q -r $(REQS_DOCS)
+	$(VENV)/pip install -q -r requirements-dev.txt
 
 # ─── Sync ────────────────────────────────────────────────────────────────────
 

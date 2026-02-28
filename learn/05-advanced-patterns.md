@@ -18,7 +18,7 @@ By the end of this module, you will be able to design prompts for retrieval-augm
 
 ### 5.1.1 Concept and Motivation
 
-Retrieval-augmented generation [Lewis2020] addresses a fundamental limitation of LLMs: their knowledge is frozen at training time. RAG augments the model's context with documents retrieved from an external knowledge base at inference time, enabling responses grounded in current, domain-specific, or proprietary information.
+Retrieval-augmented generation [Lewis2020] addresses a fundamental limitation of LLMs: their knowledge is frozen at training time. For a comprehensive survey of RAG techniques and their evolution, see Gao et al. [Gao2024]. RAG augments the model's context with documents retrieved from an external knowledge base at inference time, enabling responses grounded in current, domain-specific, or proprietary information.
 
 The architecture is conceptually simple. Given a user query: (1) an embedding model converts the query into a vector, (2) a retrieval system searches a document index for the most semantically similar passages, (3) the retrieved passages are injected into the prompt as context, and (4) the LLM generates a response grounded in both its parametric knowledge and the retrieved evidence.
 

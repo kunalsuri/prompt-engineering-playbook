@@ -20,7 +20,7 @@ Review the target file(s) for issues across five dimensions. Produce a structure
 2. **Correctness** — Logic errors, unhandled promise rejections, missing `await`, off-by-one errors, incorrect null/undefined handling.
 3. **Security** — Injection risks (SQL, shell), unvalidated external inputs, hardcoded secrets, unsafe deserialization, prototype pollution.
 4. **Performance** — Unnecessary `await` in loops (use `Promise.all`), missing indexes for DB queries, synchronous blocking in async context.
-5. **Style & Maintainability** — PEP 8 equivalent: naming conventions, dead code, over-abstraction, cyclomatic complexity above 10.
+5. **Style & Maintainability** — ESLint/Prettier compliance: naming conventions, dead code, over-abstraction, cyclomatic complexity above 10.
 
 # Output Format
 

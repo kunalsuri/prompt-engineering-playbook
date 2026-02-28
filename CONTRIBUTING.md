@@ -190,6 +190,7 @@ Every `.prompt.md` file **must** begin with these three fields:
 ```yaml
 ---
 mode: 'agent'          # or 'edit' or 'ask' — see VS Code Copilot docs
+                       # Valid values: 'agent', 'edit', 'ask'
 description: 'One-sentence description of what this prompt does.'
 version: '1.0.0'       # semantic version; bump when behavior changes
 ---

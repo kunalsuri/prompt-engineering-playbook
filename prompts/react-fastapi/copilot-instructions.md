@@ -32,7 +32,7 @@
 ## 🟡 BACKEND RULES (Python + FastAPI)
 
 ### 1. Code Quality (PEP 8)
-* **Style**: Black formatting. `isort` imports.
+* **Style**: `ruff format` (black-compatible). `ruff` for linting and import sorting.
 * **Type Hints**: **Mandatory** (`list[str]`, `str | int`).
 * **Paths**: Use `pathlib.Path` exclusively.
 

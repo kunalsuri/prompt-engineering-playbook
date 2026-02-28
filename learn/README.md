@@ -83,15 +83,15 @@ New to prompt engineering but already have LLM calls in your code? The **[Prompt
 
 Want to see good vs. bad prompts side-by-side? The **[Before & After Gallery](before-and-after-gallery.md)** shows 15 prompt comparisons organized by task — no pattern jargon required.
 
-Want to understand *why* prompt design decisions were made? The **[Architecture Decision Records](decisions/)** document the reasoning behind four real-world prompt design choices, with alternatives considered and trade-offs accepted.
+Want to understand *why* prompt design decisions were made? The **[Architecture Decision Records](decisions/README.md)** document the reasoning behind four real-world prompt design choices, with alternatives considered and trade-offs accepted.
 
-Want to read the primary research? The **[Research Extension Track](research/)** provides curated study guides for 15 foundational papers — with summaries, discussion questions, and connections back to the curriculum.
+Want to read the primary research? The **[Research Extension Track](research/README.md)** provides curated study guides for 15 foundational papers — with summaries, discussion questions, and connections back to the curriculum.
 
 ---
 
 ## Hands-On Labs
 
-Ready to experiment with a real API? The **[Labs](labs/)** directory contains six runnable Python experiments that let you observe prompt-engineering concepts first-hand:
+Ready to experiment with a real API? The **[Labs](labs/README.md)** directory contains six runnable Python experiments that let you observe prompt-engineering concepts first-hand:
 
 | Lab | Concept | Module Link |
 |-----|---------|-------------|
@@ -108,7 +108,7 @@ See the [Lab README](labs/README.md) for setup instructions.
 
 ## Exercise Solutions
 
-Finished the exercises? Compare your work against the **[Reference Solutions](solutions/exercise-solutions.md)** for all 16 exercises across Modules 1–5. (Module 0 is a narrative on-ramp and Module 6 includes open-ended design exercises.) Exercises marked **(Exemplar)** show one valid approach — your answers may differ and still be correct.
+Finished the exercises? Compare your work against the **[Reference Solutions](solutions/exercise-solutions.md)** for all 20 exercises across Modules 1–6. (Module 0 is a narrative on-ramp with no exercises.) Exercises marked **(Exemplar)** show one valid approach — your answers may differ and still be correct.
 
 ---
 
@@ -134,4 +134,4 @@ All empirical claims are cited using entries in [`references.md`](../references.
 
 ---
 
-[← Back to main README](../README.md) · [Start Module 1 →](01-introduction.md)
+[← Back to main README](../index.md) · [Start Module 1 →](01-introduction.md)

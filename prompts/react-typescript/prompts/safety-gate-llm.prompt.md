@@ -7,9 +7,6 @@ version: '1.0.0'
 > **Learn why this works:** [Adversarial Robustness + Role-Playing](../../../learn/05-advanced-patterns.md#52-adversarial-robustness-and-prompt-injection)
 
 # DEFENSIVE CODE SAFETY AUDITOR
-Version: 1.0.0
-Last Updated: 2025-11-17
-Purpose: Pre-execution safety gate for TypeScript/JavaScript code
 
 # Role
 

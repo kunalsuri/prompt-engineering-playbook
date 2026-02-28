@@ -10,7 +10,7 @@ Maya is writing a college application essay. She opens a browser, types into an 
 
 ---
 
-### Attempt 1
+## Attempt 1
 
 **Maya types:**
 > "Help me with my college essay."
@@ -24,7 +24,7 @@ Maya stares at the screen. *That's... generic advice I could find anywhere.* She
 
 ---
 
-### Attempt 2
+## Attempt 2
 
 Maya tries again, adding more detail.
 
@@ -42,7 +42,7 @@ Maya cringes. *It's technically an essay about resilience. But it sounds like a 
 
 ---
 
-### Attempt 3
+## Attempt 3
 
 A teacher had told Maya to "be specific." She decides to try it.
 

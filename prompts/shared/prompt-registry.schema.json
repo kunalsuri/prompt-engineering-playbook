@@ -8,7 +8,7 @@
   "properties": {
     "mode": {
       "type": "string",
-      "enum": ["agent", "chat", "insert", "edit"],
+      "enum": ["agent", "edit", "ask"],
       "description": "The VS Code / GitHub Copilot interaction mode for this prompt. 'agent' is the most common mode for production prompts."
     },
     "description": {
@@ -38,7 +38,7 @@
     },
     "stack": {
       "type": "string",
-      "enum": ["python", "react-typescript", "react-fastapi", "shared", "other"],
+      "enum": ["python", "react-typescript", "react-fastapi", "nodejs-typescript", "shared", "other"],
       "description": "The technology stack this prompt targets."
     },
     "patterns": {
@@ -110,6 +110,7 @@
     }
   },
   "if": {
+    "required": ["deprecated"],
     "properties": { "deprecated": { "const": true } }
   },
   "then": {

@@ -2,6 +2,13 @@
 mode: 'agent'
 description: 'Analyze the provided project files and generate an updated root README.md for Python projects.'
 version: '1.1.0'
+changelog:
+  - version: '1.1.0'
+    date: '2025-06-01'
+    changes: 'Expanded file-analysis scope and improved section-generation logic'
+  - version: '1.0.0'
+    date: '2025-01-15'
+    changes: 'Initial release'
 ---
 
 > **Learn why this works:** [Constrained Output + Specificity](../../../learn/03-patterns.md#36-pattern-5-constrained-output)

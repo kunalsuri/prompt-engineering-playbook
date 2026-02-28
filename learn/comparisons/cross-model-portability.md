@@ -24,12 +24,12 @@ The following grid shows how five key capabilities are supported across four maj
 | Capability | GPT-4o | Claude 3.5 Sonnet | Gemini 1.5 Pro | Llama 3.1 70B |
 |---|---|---|---|---|
 | **System prompt adherence** | ✅ Very strong | ✅ Very strong | ✅ Strong | ⚠️ Moderate — longer system prompts lose effect |
-| **Zero-shot instruction following** | ✅ | ✅ | ✅ | ⚠️ Benefits more from few-shot than others |
+| **Zero-shot instruction following** | ✅ | ✅ | ✅ | ⚠️ Benefits more from few-shot [Brown2020] than others |
 | **Chain-of-thought (explicit)** | ✅ | ✅ | ✅ | ✅ Requires explicit "think step by step" trigger |
 | **Native JSON mode / structured output** | ✅ `response_format: json_object` | ⚠️ Via tool-use or prompt engineering | ✅ Constrained decoding (Gemini API) | ❌ Prompt-based only; wrapping in markdown common |
 | **Tool-calling / function-calling** | ✅ Native parallel tool-calling | ✅ Tool-use API | ✅ Function declarations API | ⚠️ Supported on select fine-tuned variants only |
 | **Refusal sensitivity** | ⚠️ Occasionally over-refuses edge-case legitimate requests | ⚠️ More conservative; explicit context needed | ✅ Generally permissive for commercial use | ✅ Minimal RLHF refusals — requires your own safety layer |
-| **Long-context attention** | ✅ Up to 128K tokens, good recall | ✅ Up to 200K tokens, strong recall | ✅ Up to 1M tokens, variable recall at extremes | ⚠️ 128K window; attention degrades beyond ~32K in practice |
+| **Long-context attention** | ✅ Up to 128K tokens, good recall | ✅ Up to 200K tokens, strong recall | ✅ Up to 1M tokens, variable recall at extremes | ⚠️ 128K window; attention degrades beyond ~32K in practice [Liu2024] |
 | **Code generation accuracy** | ✅ | ✅ | ✅ | ✅ Strong on common languages; weaker on niche |
 | **Following negative constraints** ("do NOT...") | ✅ | ✅ | ⚠️ Occasionally ignores peripheral negatives | ⚠️ Needs repetition for strict compliance |
 | **Markdown / format compliance** | ✅ | ✅ | ✅ | ⚠️ Extra prose around structured output is common |

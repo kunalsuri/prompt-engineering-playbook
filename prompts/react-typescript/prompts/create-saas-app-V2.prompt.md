@@ -2,6 +2,13 @@
 mode: 'agent'
 description: 'Build My-SAAS-APP – A Full-Stack Feature-Driven SaaS application with React, TypeScript & Express'
 version: '1.1.0'
+changelog:
+  - version: '1.1.0'
+    date: '2025-06-01'
+    changes: 'Refined execution rules, improved output structure, and added quality-gate checks'
+  - version: '1.0.0'
+    date: '2025-01-15'
+    changes: 'Initial release'
 ---
 
 > **Learn why this works:** [Decomposition + Specificity](../../../learn/02-core-principles.md#22-principle-2-decomposition)

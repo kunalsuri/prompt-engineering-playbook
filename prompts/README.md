@@ -11,7 +11,7 @@ Production-ready prompt files for VS Code & GitHub Copilot. Pick your stack, cop
 For Python applications — CLI tools, APIs, data pipelines, ML services.
 
 **Base instructions:** [`python/copilot-instructions.md`](python/copilot-instructions.md)
-Enforces Python 3.12+, modern type hints (`str | int`, `list[str]`), Google-style docstrings, `ruff` + `mypy` + `black` + `pytest` toolchain.
+Enforces Python 3.12+, modern type hints (`str | int`, `list[str]`), Google-style docstrings, `ruff` + `mypy` + `pytest` toolchain.
 
 **Available prompts:**
 
@@ -63,14 +63,33 @@ Covers both frontend and backend conventions, API contract design, Pydantic v2 s
 
 ---
 
+### 🟢 [Node.js + TypeScript](nodejs-typescript/)
+
+For Node.js backend or full-stack applications using TypeScript.
+
+**Base instructions:** [`nodejs-typescript/copilot-instructions.md`](nodejs-typescript/copilot-instructions.md)
+Enforces Node.js 20 LTS+, TypeScript 5.x strict mode, `vitest`/`jest`, `zod` validation, ESLint with `@typescript-eslint`.
+
+**Available prompts:**
+
+| Prompt File | What It Does |
+|------------|-------------|
+| `create-api-endpoint.prompt.md` | Generate a new REST API endpoint with validation and tests |
+| `review-code.prompt.md` | Review TypeScript/Node.js code for type safety and correctness |
+| `write-tests.prompt.md` | Generate vitest/jest test suite for existing code |
+| `generate-openapi-spec.prompt.md` | Generate OpenAPI 3.1 specification from route handlers |
+
+---
+
 ## Shared Instructions
 
 Files in [`shared/`](shared/) apply across all stacks. These should be copied once into your project's `.github/instructions/` directory.
 
 | File | Purpose |
 |------|---------|
-| [`codacy.instructions.md`](shared/codacy.instructions.md) | Code quality standards, complexity thresholds, security gates |
-
+| [`codacy.instructions.md`](shared/codacy.instructions.md) | Code quality standards, complexity thresholds, security gates || [`evaluation-template.md`](shared/evaluation-template.md) | Four-part prompt evaluation framework (manual rubric, automated pipeline, LLM-as-Judge, A/B testing) |
+| [`readme-generator-base.md`](shared/readme-generator-base.md) | Shared base for all README-generator prompts (referenced via `#file:` directive) |
+| [`prompt-registry.schema.json`](shared/prompt-registry.schema.json) | JSON Schema for validating `.prompt.md` YAML frontmatter |
 ---
 
 ## How to Install

@@ -669,4 +669,350 @@ The revised prompt reduced the cross-model output length gap from 57% to 17% and
 
 ---
 
+## Module 6 — Agentic Patterns
+
+### Exercise 6.1 — Plan-and-Execute **(Exemplar)**
+
+**Task:** Choose a complex research question (e.g., "Compare the three most popular Python web frameworks for building REST APIs in 2025"). Write (a) a planner prompt, (b) an executor prompt for each step type, and (c) a re-planner prompt that adjusts the plan based on intermediate findings.
+
+#### (a) Planner Prompt
+
+```text
+# Role
+You are a Research Planner. Your job is to decompose a complex research question
+into a numbered sequence of concrete steps.
+
+# Task
+Research question: "Compare the three most popular Python web frameworks for
+building REST APIs in 2025."
+
+Produce a step-by-step plan where each step is one of these types:
+- SEARCH: retrieve factual information from a specified source
+- ANALYZE: compare, rank, or evaluate data from previous steps
+- SYNTHESIZE: combine findings into a coherent summary
+
+# Output Format
+Return a numbered list. Each item must start with the step type in brackets.
+
+# Plan
+1. [SEARCH] Identify the three most popular Python web frameworks for REST APIs
+   in 2025 by GitHub stars, PyPI downloads, and community survey rankings.
+2. [SEARCH] For each framework, gather: performance benchmarks (requests/sec),
+   learning curve, async support, ecosystem maturity, and production adoption.
+3. [ANALYZE] Compare the three frameworks across the dimensions gathered in
+   step 2. Identify clear winners per dimension.
+4. [SEARCH] Find notable limitations or common complaints for each framework
+   from developer surveys and issue trackers.
+5. [SYNTHESIZE] Produce a recommendation table and a 3-paragraph summary with
+   a situational recommendation (which framework for which use case).
+```
+
+#### (b) Executor Prompt (SEARCH type)
+
+```text
+# Role
+You are a Research Executor. You carry out exactly one step from a research plan.
+
+# Context
+Plan step: "[SEARCH] Identify the three most popular Python web frameworks for
+REST APIs in 2025 by GitHub stars, PyPI downloads, and community survey rankings."
+
+# Instructions
+- Report only factual, verifiable information.
+- Cite your sources (name, year).
+- If you are uncertain about a data point, flag it as (approx.) or (unverified).
+- Do NOT perform analysis — report raw findings only.
+
+# Output Format
+Return a structured list of findings, one per framework, with source annotations.
+```
+
+#### (c) Re-Planner Prompt
+
+```text
+# Role
+You are a Research Re-Planner. You review intermediate findings and adjust the
+remaining plan if needed.
+
+# Completed Steps
+Step 1 result: [paste step 1 output]
+Step 2 result: [paste step 2 output]
+
+# Remaining Plan
+3. [ANALYZE] Compare the three frameworks...
+4. [SEARCH] Find notable limitations...
+5. [SYNTHESIZE] Produce a recommendation table...
+
+# Instructions
+- If the completed steps reveal gaps, add new steps to fill them.
+- If a remaining step is now unnecessary, remove it with justification.
+- If priorities have shifted based on findings, reorder remaining steps.
+- Output the revised remaining plan in the same numbered format.
+```
+
+**Why this works:** The planner decomposes a vague goal into typed, verifiable steps. The executor prompt is narrowly scoped (one step, one type), preventing drift. The re-planner closes the feedback loop by adapting the plan to actual findings — the core advantage of plan-and-execute over rigid sequential pipelines (Module 6 §6.2).
+
+---
+
+### Exercise 6.2 — Reflection Loop **(Exemplar)**
+
+**Task:** Take your solution from any previous exercise and apply a two-pass reflection loop: (a) generate the initial output, (b) write a reflector prompt that critiques it, (c) apply the reflector and revise.
+
+#### Setup
+
+Using the few-shot classification prompt from Exercise 3.1 as the initial output.
+
+#### (a) Initial Output
+
+(Use your Exercise 3.1 solution as-is — this is the "draft" that will be reflected upon.)
+
+#### (b) Reflector Prompt
+
+```text
+# Role
+You are a Prompt Quality Reviewer. Your job is to critique a prompt and identify
+specific weaknesses.
+
+# Prompt Under Review
+"""
+[paste Exercise 3.1 prompt here]
+"""
+
+# Evaluation Criteria
+Score each dimension 1–5 and provide a specific improvement suggestion:
+
+1. **Clarity** — Is the task unambiguously defined?
+2. **Completeness** — Are edge cases addressed?
+3. **Examples** — Are few-shot examples representative and diverse?
+4. **Output format** — Is the expected output format fully specified?
+5. **Robustness** — Would this prompt produce consistent results across runs?
+
+# Output Format
+Return a markdown table with columns: Dimension | Score | Issue | Suggested Fix
+
+After the table, write a revised version of the prompt incorporating all fixes.
+```
+
+#### (c) Comparison
+
+| Dimension | Before Reflection | After Reflection |
+|---|---|---|
+| Clarity | 4/5 — task is clear | 5/5 — added explicit handling for ambiguous inputs |
+| Completeness | 3/5 — no edge-case guidance | 4/5 — added "If the input is ambiguous, classify as 'uncertain'" |
+| Examples | 3/5 — examples cluster around obvious cases | 4/5 — added a borderline example |
+| Output format | 4/5 — format specified but no error handling | 5/5 — added "If classification fails, return {error: ...}" |
+| Robustness | 3/5 — temperature-sensitive wording | 4/5 — tightened wording, added explicit constraints |
+
+**Key takeaway:** Reflection caught three categories of errors: (1) missing edge-case handling, (2) insufficient example diversity, and (3) under-specified error behavior. The two-pass approach improved the average score from 3.4/5 to 4.4/5 — consistent with the finding that verbal self-critique can significantly improve output quality without weight updates [Shinn2023].
+
+---
+
+### Exercise 6.3 — Multi-Agent Design **(Exemplar)**
+
+**Task:** Design a multi-agent system for code review. Define at least three specialist agents plus a Coordinator agent.
+
+#### Agent Definitions
+
+**Agent 1: Security Reviewer**
+
+```text
+# Role
+You are a Security Reviewer specializing in application security.
+
+# Task
+Review the provided code diff for security vulnerabilities.
+
+# Focus Areas
+- Injection vulnerabilities (SQL, XSS, command injection)
+- Authentication and authorization flaws
+- Secrets or credentials in code
+- Insecure data handling (PII exposure, missing encryption)
+
+# Output Format
+Return a JSON array of findings:
+[{"severity": "critical|high|medium|low", "line": <number>,
+  "issue": "<description>", "fix": "<suggested fix>"}]
+If no issues found, return an empty array: []
+```
+
+**Agent 2: Performance Reviewer**
+
+```text
+# Role
+You are a Performance Engineer reviewing code for efficiency issues.
+
+# Task
+Review the provided code diff for performance problems.
+
+# Focus Areas
+- O(n²) or worse algorithmic complexity where O(n log n) or O(n) is feasible
+- Unnecessary memory allocations or copies
+- Missing caching for repeated expensive operations
+- N+1 query patterns in database access
+- Blocking I/O in async contexts
+
+# Output Format
+Return a JSON array of findings:
+[{"severity": "critical|high|medium|low", "line": <number>,
+  "issue": "<description>", "fix": "<suggested fix>"}]
+If no issues found, return an empty array: []
+```
+
+**Agent 3: Style Reviewer**
+
+```text
+# Role
+You are a Code Style Reviewer enforcing team conventions.
+
+# Task
+Review the provided code diff for style and maintainability issues.
+
+# Focus Areas
+- Naming conventions (consistent casing, descriptive names)
+- Function length (flag functions > 40 lines)
+- Missing or incorrect type annotations
+- Dead code or unused imports
+- Documentation gaps (public APIs without docstrings)
+
+# Output Format
+Return a JSON array of findings:
+[{"severity": "critical|high|medium|low", "line": <number>,
+  "issue": "<description>", "fix": "<suggested fix>"}]
+If no issues found, return an empty array: []
+```
+
+**Coordinator Agent**
+
+```text
+# Role
+You are the Code Review Coordinator. You aggregate findings from specialist
+reviewers and produce a unified review report.
+
+# Input
+You will receive JSON arrays of findings from three specialist reviewers:
+- Security Reviewer findings
+- Performance Reviewer findings
+- Style Reviewer findings
+
+# Task
+1. Merge all findings into a single list.
+2. De-duplicate findings that overlap across reviewers.
+3. Sort by severity (critical → high → medium → low).
+4. If any critical finding exists, set the overall verdict to "CHANGES REQUESTED".
+   Otherwise, if any high finding exists, set verdict to "REVIEW CAREFULLY".
+   Otherwise, set verdict to "APPROVED".
+
+# Output Format
+## Code Review Summary
+**Verdict:** [APPROVED | REVIEW CAREFULLY | CHANGES REQUESTED]
+**Total findings:** <count>
+
+### Findings
+[numbered list of findings, each with severity badge, description, and fix]
+```
+
+#### Advantages Over a Single Prompt
+
+| Dimension | Single Prompt | Multi-Agent |
+|---|---|---|
+| Depth of analysis | Shallow across all areas | Deep within each specialty |
+| Token budget | One large context window shared | Each agent gets a focused context |
+| Maintainability | One monolithic prompt to update | Agents updated independently |
+| Parallelism | Sequential processing | Specialist agents can run in parallel |
+| Accountability | Hard to trace which "part" missed an issue | Each agent's output is auditable |
+
+The primary trade-off is latency and token cost: three specialist calls plus one coordinator call vs. a single call. For production code review, the quality improvement typically justifies the cost (Module 6 §6.5).
+
+---
+
+### Exercise 6.4 — Memory Management **(Exemplar)**
+
+**Task:** Design a memory management system for a multi-session customer support agent. Write (a) a summarization prompt, (b) a retrieval prompt, and (c) a token budget estimate.
+
+#### (a) Summarization Prompt (runs after each session)
+
+```text
+# Role
+You are a Session Summarizer for a customer support system. Your summaries are
+stored and retrieved in future sessions.
+
+# Input
+- Customer ID: {{customer_id}}
+- Session transcript: {{transcript}}
+- Previous summary (if any): {{previous_summary}}
+
+# Task
+Produce an updated customer summary that incorporates the new session.
+
+# Requirements
+- Preserve ALL unresolved issues from the previous summary.
+- Add new issues, decisions, and commitments from this session.
+- Mark resolved issues as [RESOLVED] but keep them for one more session.
+- Remove issues marked [RESOLVED] in the previous summary (already retained once).
+- Include: customer sentiment trend, escalation history, products discussed.
+- Maximum length: 300 words.
+
+# Output Format
+## Customer Summary — {{customer_id}}
+**Last updated:** {{date}}
+**Sentiment trend:** [improving | stable | declining]
+**Open issues:**
+- [issue 1]
+- [issue 2]
+**Recently resolved:**
+- [RESOLVED] [issue]
+**Key context:**
+- [relevant facts, preferences, prior commitments]
+```
+
+#### (b) Retrieval Prompt (runs at the start of each new session)
+
+```text
+# Role
+You are a Context Loader for a customer support agent. You prepare the agent's
+memory before a new session begins.
+
+# Input
+- Customer ID: {{customer_id}}
+- Stored summary: {{stored_summary}}
+- New session opening message: {{opening_message}}
+
+# Task
+Extract the most relevant context from the stored summary for this specific
+session, based on the customer's opening message.
+
+# Requirements
+- Always include: all open issues, sentiment trend, and any commitments made.
+- Highlight any issue that appears related to the customer's opening message.
+- If the opening message introduces a new topic, note: "NEW TOPIC — no prior
+  context available."
+- Maximum length: 150 words (to conserve token budget for the conversation).
+
+# Output Format
+## Session Context for Agent
+**Returning customer:** Yes/No
+**Relevant open issues:** [list]
+**Prior commitments:** [list]
+**Sentiment:** [trend]
+**Suggested opening:** [one-sentence acknowledgment of prior interaction]
+```
+
+#### (c) Token Budget Estimate
+
+| Component | Estimated Tokens | Notes |
+|---|---|---|
+| System prompt (agent instructions) | ~500 | Fixed per session |
+| Retrieved context (from retrieval prompt) | ~200 | Capped at 150 words ≈ 200 tokens |
+| Conversation history (current session) | ~2,000 | Sliding window, last 8–10 turns |
+| Summarization prompt (end of session) | ~800 | Includes transcript + previous summary |
+| **Total per session** | **~3,500** | Well within 8K–128K context windows |
+
+**Design rationale:**
+- The 300-word summary cap ensures the stored memory never exceeds ~400 tokens, keeping retrieval cheap across sessions.
+- The retrieval prompt further compresses to 150 words, reserving most of the context window for the live conversation.
+- The [RESOLVED] retention policy (keep for one extra session) prevents the agent from re-asking about just-resolved issues while still allowing memory to shrink over time.
+- For a model with an 8K context window, this budget leaves ~4,500 tokens for the agent's response and safety margin. For 128K models, the sliding window for conversation history could expand to ~50 turns.
+
+---
+
 [← Back to curriculum](../README.md)

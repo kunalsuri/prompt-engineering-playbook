@@ -20,7 +20,7 @@ By the end of this module, you will be able to identify, select, and apply the s
 
 ## 3.1 Overview: What Is a Prompting Pattern?
 
-A prompting pattern is a reusable structural template for organizing the content of a prompt to achieve a specific class of outcomes. Patterns are to prompt engineering what design patterns are to software engineering — they encode proven solutions to recurring problems. The patterns described in this module are not mutually exclusive; production prompts frequently combine multiple patterns (e.g., role-playing with chain-of-thought, or few-shot with constrained output).
+A prompting pattern is a reusable structural template for organizing the content of a prompt to achieve a specific class of outcomes [White2023]. Patterns are to prompt engineering what design patterns are to software engineering — they encode proven solutions to recurring problems. The patterns described in this module are not mutually exclusive; production prompts frequently combine multiple patterns (e.g., role-playing with chain-of-thought, or few-shot with constrained output).
 
 The six patterns covered here represent the current consensus of the prompt engineering community, grounded in empirical research from 2020–2025. Each section includes a definition, a worked example, guidance on when to use (and when not to use) the pattern, and cross-references to the repository's comparison documents and production templates.
 

@@ -43,7 +43,7 @@
 
 ### Module 4
 - [ ] Exercise 4.1 — Token budget audit
-- [ ] Exercise 4.2 — Prompt versioning with Git diff example
+- [ ] Exercise 4.2 — Prompt refactoring (eliminate duplication across prompt files)
 - [ ] Exercise 4.3 — Anti-pattern identification and fix
 
 ### Module 5
@@ -68,7 +68,7 @@
 - [ ] [Lab 4 — Evaluation Pipeline](labs/lab_04_evaluation_pipeline.py) *(15 min)*
 - [ ] [Lab 5 — Tool-Calling & Structured Output](labs/lab_05_tool_calling.py) *(20 min)*
 - [ ] [Lab 6 — Plan-and-Execute Agent](labs/lab_06_agentic_plan_execute.py) *(25 min)*
-- [ ] **Failure Gallery** — Diagnose and fix 5 broken prompts — [labs/failure-gallery/](labs/failure-gallery/) *(30 min)*
+- [ ] **Failure Gallery** — Diagnose and fix 5 broken prompts — [labs/failure-gallery/](labs/failure-gallery/README.md) *(30 min)*
 
 ---
 
