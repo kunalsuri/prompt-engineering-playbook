@@ -1,0 +1,7 @@
+# Documentation build dependencies
+# Pin mkdocs-material to 9.5.50 — the last 9.5.x release.
+# 9.6.0+ emits a warning about MkDocs 2.0 incompatibility that has no fix yet.
+# Revisit when mkdocs-material publishes a MkDocs-2.0-compatible major release.
+mkdocs==1.6.1
+mkdocs-material==9.5.50
+mkdocs-minify-plugin>=0.8.0,<1.0.0

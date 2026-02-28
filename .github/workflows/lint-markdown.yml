@@ -1,0 +1,94 @@
+name: Lint Markdown
+
+on:
+  push:
+    branches: [main]
+    paths: ['**/*.md']
+  pull_request:
+    branches: [main]
+    paths: ['**/*.md']
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check internal Markdown links
+        # NOTE: mlc-config.json deliberately ignores all external URLs (^https?://)
+        # to avoid rate-limit failures in CI. Only relative/internal links are checked.
+        # To also verify external links, remove the ignorePatterns entry in mlc-config.json.
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/mlc-config.json'
+          folder-path: '.'
+          file-extension: '.md'
+
+  prompt-frontmatter-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate prompt file frontmatter
+        run: ./scripts/lint-prompt-frontmatter.sh
+
+  prompt-token-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check prompt file token budgets
+        run: |
+          MAX_TOKENS=4000
+          exit_code=0
+          for file in prompts/*/prompts/*.prompt.md; do
+            chars=$(wc -c < "$file")
+            est_tokens=$((chars / 4))
+            if [ "$est_tokens" -gt "$MAX_TOKENS" ]; then
+              echo "WARN: $file ≈ $est_tokens tokens (limit: $MAX_TOKENS)"
+              exit_code=1
+            fi
+          done
+          if [ "$exit_code" -eq 1 ]; then
+            echo ""
+            echo "One or more prompt files exceed the estimated token budget."
+            echo "This is a warning — large prompts may consume excessive context window space."
+            echo "Consider decomposing large prompts or moving shared content to referenced files."
+          fi
+          # Token budget is advisory, not blocking — always exit 0
+          exit 0
+
+  docs-sync-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create docs_src symlinks
+        run: |
+          mkdir -p docs_src
+          ln -sf ../README.md          docs_src/index.md
+          ln -sf ../GETTING-STARTED.md docs_src/GETTING-STARTED.md
+          ln -sf ../CONTRIBUTING.md    docs_src/CONTRIBUTING.md
+          ln -sf ../CHANGELOG.md       docs_src/CHANGELOG.md
+          ln -sf ../references.md      docs_src/references.md
+          ln -sf ../learn              docs_src/learn
+          ln -sf ../prompts            docs_src/prompts
+          ln -sf ../docs/assets        docs_src/assets
+
+      - name: Verify docs_src symlinks resolve correctly
+        run: |
+          errors=0
+          for target in docs_src/index.md docs_src/GETTING-STARTED.md docs_src/CONTRIBUTING.md \
+                         docs_src/CHANGELOG.md docs_src/references.md docs_src/learn docs_src/prompts; do
+            if [ ! -e "$target" ]; then
+              echo "ERROR: Symlink target does not resolve: $target"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            echo "FAILED — $errors broken symlink(s) detected."
+            exit 1
+          fi
+          echo "PASSED — all docs_src/ symlinks resolve correctly."

@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/prompts/shared/prompt-registry.schema.json",
+  "title": "Prompt Registry Entry",
+  "description": "Schema for prompt metadata in the Prompt Engineering Playbook. Validates the YAML frontmatter of .prompt.md files and provides a standardized format for prompt cataloging.",
+  "type": "object",
+  "required": ["mode", "description", "version"],
+  "properties": {
+    "mode": {
+      "type": "string",
+      "enum": ["agent", "chat", "insert", "edit"],
+      "description": "The VS Code / GitHub Copilot interaction mode for this prompt. 'agent' is the most common mode for production prompts."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "A human-readable description of what this prompt does. Should be specific enough to distinguish it from other prompts."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (MAJOR.MINOR.PATCH). Bump when the prompt's behavior changes."
+    },
+    "author": {
+      "type": "string",
+      "description": "Author or team that created the prompt."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 50
+      },
+      "uniqueItems": true,
+      "description": "Searchable tags for categorization (e.g., 'python', 'testing', 'security', 'react')."
+    },
+    "stack": {
+      "type": "string",
+      "enum": ["python", "react-typescript", "react-fastapi", "shared", "other"],
+      "description": "The technology stack this prompt targets."
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "zero-shot",
+          "few-shot",
+          "chain-of-thought",
+          "role-playing",
+          "constrained-output",
+          "react",
+          "plan-and-execute",
+          "reflection",
+          "multi-agent"
+        ]
+      },
+      "uniqueItems": true,
+      "description": "Prompt engineering patterns used in this prompt (from Module 3 and Module 6)."
+    },
+    "model_compatibility": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Models this prompt has been tested with (e.g., 'gpt-4o', 'claude-3.5-sonnet', 'gemini-1.5-pro')."
+    },
+    "estimated_tokens": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 200000,
+      "description": "Estimated token count for the prompt template (excluding dynamic input)."
+    },
+    "requires_tools": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this prompt requires tool/function-calling capabilities."
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this prompt is deprecated. Deprecated prompts should include a 'superseded_by' field."
+    },
+    "superseded_by": {
+      "type": "string",
+      "description": "Relative path to the prompt that replaces this one (only when deprecated: true)."
+    },
+    "changelog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "changes"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "changes": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Version history for this prompt."
+    }
+  },
+  "if": {
+    "properties": { "deprecated": { "const": true } }
+  },
+  "then": {
+    "required": ["superseded_by"]
+  },
+  "additionalProperties": false
+}

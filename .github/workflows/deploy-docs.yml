@@ -1,0 +1,75 @@
+# --------------------------
+# Deploy MkDocs Material to GitHub Pages
+# Triggers on push to main or manual dispatch
+# --------------------------
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'learn/**'
+      - 'prompts/**'
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'README.md'
+      - 'GETTING-STARTED.md'
+      - 'CONTRIBUTING.md'
+      - 'CHANGELOG.md'
+      - 'references.md'
+  workflow_dispatch:              # allow manual re-deploy
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false       # let running deploys finish
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs Material & plugins
+        run: pip install mkdocs-material mkdocs-minify-plugin
+
+      - name: Prepare docs_src symlinks
+        run: |
+          mkdir -p docs_src
+          ln -sf ../README.md docs_src/index.md
+          ln -sf ../GETTING-STARTED.md docs_src/GETTING-STARTED.md
+          ln -sf ../CONTRIBUTING.md docs_src/CONTRIBUTING.md
+          ln -sf ../CHANGELOG.md docs_src/CHANGELOG.md
+          ln -sf ../references.md docs_src/references.md
+          ln -sf ../learn docs_src/learn
+          ln -sf ../prompts docs_src/prompts
+          ln -sf ../docs/assets docs_src/assets
+
+      - name: Build site
+        run: mkdocs build --site-dir _site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,30 @@
+# CODEOWNERS — Define ownership for key areas of the repository.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything
+*                                   @kunalsuri
+
+# Curriculum content
+/learn/                             @kunalsuri
+
+# Comparison documents
+/learn/comparisons/                 @kunalsuri
+
+# Prompt templates — per stack
+/prompts/python/                    @kunalsuri
+/prompts/react-typescript/          @kunalsuri
+/prompts/react-fastapi/             @kunalsuri
+/prompts/nodejs-typescript/         @kunalsuri
+
+# Shared instructions and evaluation
+/prompts/shared/                    @kunalsuri
+
+# Scripts
+/scripts/                           @kunalsuri
+
+# Top-level documentation
+README.md                           @kunalsuri
+GETTING-STARTED.md                  @kunalsuri
+CONTRIBUTING.md                     @kunalsuri
+CHANGELOG.md                        @kunalsuri
+references.md                       @kunalsuri

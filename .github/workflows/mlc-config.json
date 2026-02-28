@@ -1,0 +1,12 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https?://",
+      "comment": "Only check internal (relative) links; skip external URLs to avoid rate limits"
+    }
+  ],
+  "replacementPatterns": [],
+  "retryOn429": true,
+  "retryCount": 3,
+  "aliveStatusCodes": [200, 206]
+}

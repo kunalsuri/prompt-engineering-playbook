@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Engineering Playbook — Interactive Prompt Builder</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --green: #3fb950;
+      --orange: #d29922;
+      --red: #f85149;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .panel h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .field {
+      margin-bottom: 1.25rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+
+    .field .hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    textarea { resize: vertical; min-height: 80px; }
+
+    .pattern-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      padding: 0.35rem 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+
+    .chip:hover { border-color: var(--accent); }
+
+    .chip.active {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .examples-area {
+      display: none;
+    }
+
+    .examples-area.visible {
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--muted);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      min-height: 300px;
+      position: relative;
+    }
+
+    .token-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .token-ok { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+    .token-warn { background: rgba(210, 153, 34, 0.15); color: var(--orange); }
+    .token-over { background: rgba(248, 81, 73, 0.15); color: var(--red); }
+
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Prompt Engineering Playbook</h1>
+  <p>Interactive Prompt Builder — assemble structured prompts from components</p>
+</header>
+
+<nav class="nav-links">
+  <a href="https://github.com/kunalsuri/prompt-engineering-playbook" target="_blank">📚 Repository</a>
+  <a href="https://github.com/kunalsuri/prompt-engineering-playbook/tree/main/learn" target="_blank">🎓 Curriculum</a>
+  <a href="https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/learn/cheatsheet.md" target="_blank">📋 Cheat Sheet</a>
+  <a href="https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/learn/cookbook.md" target="_blank">🍳 Cookbook</a>
+</nav>
+
+<div class="container">
+  <!-- LEFT: Input Form -->
+  <div class="panel">
+    <h2>⚙️ Prompt Components</h2>
+
+    <div class="field">
+      <label>Role</label>
+      <div class="hint">Who should the model act as? (Module 2, §2.1)</div>
+      <input type="text" id="role" placeholder="e.g., You are a senior Python developer specializing in FastAPI">
+    </div>
+
+    <div class="field">
+      <label>Context</label>
+      <div class="hint">Background information the model needs (Module 1, §1.3)</div>
+      <textarea id="context" rows="3" placeholder="e.g., The project uses Python 3.12, FastAPI 0.110, and PostgreSQL 16. We follow Google's Python style guide."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Task</label>
+      <div class="hint">What should the model do? Be specific. (Module 2, §2.1)</div>
+      <textarea id="task" rows="3" placeholder="e.g., Review this function for type safety, error handling, and performance. Provide findings as a numbered list."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Output Format</label>
+      <div class="hint">How should the response be structured? (Module 3, §3.6)</div>
+      <select id="format">
+        <option value="">-- Select or type below --</option>
+        <option value="markdown">Markdown with headers</option>
+        <option value="numbered">Numbered list</option>
+        <option value="json">JSON object</option>
+        <option value="table">Markdown table</option>
+        <option value="bullets">Bullet points</option>
+        <option value="freeform">Free-form prose</option>
+        <option value="custom">Custom (specify below)</option>
+      </select>
+      <input type="text" id="formatCustom" placeholder="Custom format instructions..." style="margin-top: 0.5rem; display: none;">
+    </div>
+
+    <div class="field">
+      <label>Constraints</label>
+      <div class="hint">Limits, rules, or guardrails (Module 4)</div>
+      <textarea id="constraints" rows="2" placeholder="e.g., Keep response under 500 words. Do not suggest third-party packages not in requirements.txt."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Patterns</label>
+      <div class="hint">Select patterns to apply (Module 3)</div>
+      <div class="pattern-chips">
+        <span class="chip" data-pattern="zero-shot">Zero-Shot</span>
+        <span class="chip" data-pattern="few-shot">Few-Shot</span>
+        <span class="chip" data-pattern="cot">Chain-of-Thought</span>
+        <span class="chip" data-pattern="role-play">Role-Playing</span>
+        <span class="chip" data-pattern="constrained">Constrained Output</span>
+        <span class="chip" data-pattern="react">ReAct</span>
+      </div>
+    </div>
+
+    <div class="field examples-area" id="examplesField">
+      <label>Few-Shot Examples</label>
+      <div class="hint">Provide 1-3 input→output examples (Module 3, §3.3)</div>
+      <textarea id="examples" rows="4" placeholder="Input: What is 2+2?\nOutput: 4\n\nInput: What is 3×5?\nOutput: 15"></textarea>
+    </div>
+
+    <div class="field" id="cotField" style="display: none;">
+      <label>Chain-of-Thought Instruction</label>
+      <div class="hint">Tell the model how to reason (Module 3, §3.4)</div>
+      <input type="text" id="cotInstruction" value="Think through this step by step, showing your reasoning before the final answer.">
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="buildPrompt()">Build Prompt</button>
+      <button class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+      <button class="btn btn-secondary" onclick="loadExample()">Load Example</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: Output -->
+  <div class="panel">
+    <h2>📝 Generated Prompt</h2>
+    <div id="output">Your assembled prompt will appear here.
+
+Fill in the components on the left and click "Build Prompt" — or click "Load Example" to see a pre-filled demo.</div>
+
+    <div class="stats">
+      <span>Characters: <strong id="charCount">0</strong></span>
+      <span>Est. tokens: <strong id="tokenCount">0</strong></span>
+      <span id="tokenBadge"></span>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>
+    Part of the <a href="https://github.com/kunalsuri/prompt-engineering-playbook">Prompt Engineering Playbook</a>
+    by <a href="https://github.com/kunalsuri">Kunal Suri</a> · MIT License
+  </p>
+  <p style="margin-top: 0.5rem;">
+    Learn the theory: <a href="https://github.com/kunalsuri/prompt-engineering-playbook/tree/main/learn">Curriculum</a> ·
+    Production templates: <a href="https://github.com/kunalsuri/prompt-engineering-playbook/tree/main/prompts">Prompts</a>
+  </p>
+</footer>
+
+<script>
+  // --- Pattern chip toggling ---
+  const chips = document.querySelectorAll('.chip');
+  const activePatterns = new Set();
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const pattern = chip.dataset.pattern;
+      chip.classList.toggle('active');
+
+      if (activePatterns.has(pattern)) {
+        activePatterns.delete(pattern);
+      } else {
+        activePatterns.add(pattern);
+      }
+
+      // Show/hide few-shot examples field
+      document.getElementById('examplesField').classList.toggle(
+        'visible', activePatterns.has('few-shot')
+      );
+
+      // Show/hide CoT field
+      document.getElementById('cotField').style.display =
+        activePatterns.has('cot') ? 'block' : 'none';
+    });
+  });
+
+  // --- Custom format toggle ---
+  document.getElementById('format').addEventListener('change', function() {
+    document.getElementById('formatCustom').style.display =
+      this.value === 'custom' ? 'block' : 'none';
+  });
+
+  // --- Build prompt ---
+  function buildPrompt() {
+    const role = document.getElementById('role').value.trim();
+    const context = document.getElementById('context').value.trim();
+    const task = document.getElementById('task').value.trim();
+    const formatSelect = document.getElementById('format').value;
+    const formatCustom = document.getElementById('formatCustom').value.trim();
+    const constraints = document.getElementById('constraints').value.trim();
+    const examples = document.getElementById('examples').value.trim();
+    const cotInstruction = document.getElementById('cotInstruction').value.trim();
+
+    let sections = [];
+
+    // Role
+    if (role) {
+      sections.push(role + (role.endsWith('.') ? '' : '.'));
+    }
+
+    // Context
+    if (context) {
+      sections.push('\n' + context);
+    }
+
+    // Few-shot examples
+    if (activePatterns.has('few-shot') && examples) {
+      sections.push('\nHere are examples of the expected behavior:\n\n' + examples);
+    }
+
+    // Task
+    if (task) {
+      sections.push('\n' + task);
+    }
+
+    // Chain-of-thought
+    if (activePatterns.has('cot') && cotInstruction) {
+      sections.push('\n' + cotInstruction);
+    }
+
+    // Output format
+    if (formatSelect && formatSelect !== 'custom') {
+      const formatMap = {
+        'markdown': 'Format your response using Markdown with clear section headers (##).',
+        'numbered': 'Present your response as a numbered list.',
+        'json': 'Respond with ONLY a valid JSON object. Do not include any text outside the JSON.',
+        'table': 'Present your response as a Markdown table with clear column headers.',
+        'bullets': 'Present your response as bullet points.',
+        'freeform': 'Respond in well-structured prose paragraphs.',
+      };
+      sections.push('\n' + formatMap[formatSelect]);
+    } else if (formatSelect === 'custom' && formatCustom) {
+      sections.push('\n' + formatCustom);
+    }
+
+    // Constraints
+    if (constraints) {
+      sections.push('\nConstraints:\n- ' + constraints.split('\n').join('\n- '));
+    }
+
+    // Defensive instructions (if constrained output pattern selected)
+    if (activePatterns.has('constrained')) {
+      sections.push('\nDo not include information beyond what is requested. If you are unsure about any part, state your uncertainty explicitly rather than guessing.');
+    }
+
+    // ReAct pattern
+    if (activePatterns.has('react')) {
+      sections.push('\nWork through this task using a Thought → Action → Observation loop:\n- Thought: reason about what to do next\n- Action: take a specific action (search, compute, write, etc.)\n- Observation: review the result\nRepeat until the task is complete, then provide the final answer.');
+    }
+
+    const prompt = sections.join('\n').trim();
+
+    const output = document.getElementById('output');
+    output.textContent = prompt || 'Fill in at least the Task field to generate a prompt.';
+
+    // Update stats
+    const chars = prompt.length;
+    const tokens = Math.ceil(chars / 4);
+    document.getElementById('charCount').textContent = chars.toLocaleString();
+    document.getElementById('tokenCount').textContent = tokens.toLocaleString();
+
+    const badge = document.getElementById('tokenBadge');
+    if (tokens <= 2000) {
+      badge.innerHTML = '<span class="token-badge token-ok">✓ Within budget</span>';
+    } else if (tokens <= 4000) {
+      badge.innerHTML = '<span class="token-badge token-warn">⚠ Moderate size</span>';
+    } else {
+      badge.innerHTML = '<span class="token-badge token-over">✗ Over 4K tokens</span>';
+    }
+  }
+
+  // --- Copy to clipboard ---
+  function copyToClipboard() {
+    const text = document.getElementById('output').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      const original = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    });
+  }
+
+  // --- Clear all ---
+  function clearAll() {
+    document.getElementById('role').value = '';
+    document.getElementById('context').value = '';
+    document.getElementById('task').value = '';
+    document.getElementById('format').value = '';
+    document.getElementById('formatCustom').value = '';
+    document.getElementById('constraints').value = '';
+    document.getElementById('examples').value = '';
+    document.getElementById('cotInstruction').value = 'Think through this step by step, showing your reasoning before the final answer.';
+
+    chips.forEach(c => c.classList.remove('active'));
+    activePatterns.clear();
+    document.getElementById('examplesField').classList.remove('visible');
+    document.getElementById('cotField').style.display = 'none';
+    document.getElementById('formatCustom').style.display = 'none';
+
+    document.getElementById('output').textContent = 'Your assembled prompt will appear here.';
+    document.getElementById('charCount').textContent = '0';
+    document.getElementById('tokenCount').textContent = '0';
+    document.getElementById('tokenBadge').innerHTML = '';
+  }
+
+  // --- Load example ---
+  function loadExample() {
+    document.getElementById('role').value = 'You are a senior Python developer specializing in FastAPI and clean architecture.';
+    document.getElementById('context').value = 'The project uses Python 3.12, FastAPI 0.110, SQLAlchemy 2.0, and PostgreSQL 16. We follow Google\'s Python style guide and require 90%+ test coverage.';
+    document.getElementById('task').value = 'Review the following function for:\n1. Type annotation correctness (PEP 484 / PEP 604)\n2. Error handling completeness\n3. SQL injection vulnerabilities\n4. Performance concerns for high-traffic endpoints\n\nFor each finding, provide severity (critical / warning / suggestion) and a concrete fix.';
+    document.getElementById('format').value = 'numbered';
+    document.getElementById('constraints').value = 'Focus only on the function provided — do not review other parts of the codebase.\nLimit to the 5 most important findings if there are many issues.';
+
+    // Activate role-play and constrained output patterns
+    clearPatterns();
+    ['role-play', 'constrained'].forEach(p => {
+      const chip = document.querySelector(`[data-pattern="${p}"]`);
+      if (chip) {
+        chip.classList.add('active');
+        activePatterns.add(p);
+      }
+    });
+
+    buildPrompt();
+  }
+
+  function clearPatterns() {
+    chips.forEach(c => c.classList.remove('active'));
+    activePatterns.clear();
+    document.getElementById('examplesField').classList.remove('visible');
+    document.getElementById('cotField').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

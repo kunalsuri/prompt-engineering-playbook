@@ -1,0 +1,80 @@
+# Makefile — Prompt Engineering Playbook
+# Common development tasks.  Run `make help` to see all targets.
+#
+# Prerequisites: Python venv at .venv/ (created by scripts/python/setup.sh)
+#   or run: python -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+.DEFAULT_GOAL := help
+VENV          := .venv/bin
+MKDOCS        := $(VENV)/mkdocs
+REQS_DOCS     := requirements-docs.txt
+
+# ─── Help ────────────────────────────────────────────────────────────────────
+
+.PHONY: help
+help:           ## Show this help message
+	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | \
+	  awk 'BEGIN {FS = ":.*##"}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+
+# ─── Install ─────────────────────────────────────────────────────────────────
+
+.PHONY: install
+install:        ## Install / refresh docs dependencies (pins mkdocs-material to avoid MkDocs 2.0 warning)
+	$(VENV)/pip install -q -r $(REQS_DOCS)
+
+# ─── Sync ────────────────────────────────────────────────────────────────────
+
+.PHONY: sync
+sync:           ## Create docs_src/ symlinks to learn/, prompts/, and top-level docs
+	@mkdir -p docs_src
+	@ln -sf ../README.md          docs_src/index.md
+	@ln -sf ../GETTING-STARTED.md docs_src/GETTING-STARTED.md
+	@ln -sf ../CONTRIBUTING.md    docs_src/CONTRIBUTING.md
+	@ln -sf ../CHANGELOG.md       docs_src/CHANGELOG.md
+	@ln -sf ../references.md      docs_src/references.md
+	@ln -sf ../learn              docs_src/learn
+	@ln -sf ../prompts            docs_src/prompts
+	@ln -sf ../docs/assets        docs_src/assets
+	@echo "Sync complete (symlinks created)."
+
+.PHONY: sync-check
+sync-check:     ## Verify docs_src/ symlinks resolve correctly
+	@errors=0; \
+	for target in docs_src/index.md docs_src/GETTING-STARTED.md docs_src/CONTRIBUTING.md \
+	              docs_src/CHANGELOG.md docs_src/references.md docs_src/learn docs_src/prompts; do \
+	  if [ ! -e "$$target" ]; then \
+	    echo "ERROR: Symlink target does not resolve: $$target"; \
+	    errors=$$((errors + 1)); \
+	  fi; \
+	done; \
+	if [ "$$errors" -gt 0 ]; then \
+	  echo "FAILED — $$errors broken symlink(s) detected."; \
+	  exit 1; \
+	fi; \
+	echo "PASSED — all docs_src/ symlinks resolve correctly."
+
+# ─── Build & Serve ───────────────────────────────────────────────────────────
+
+.PHONY: build
+build: sync     ## Sync docs_src/, then build the MkDocs static site into _site/
+	$(MKDOCS) build
+
+.PHONY: serve
+serve: sync     ## Sync docs_src/, then start the MkDocs dev server (live-reload)
+	$(MKDOCS) serve
+
+# ─── Lint ────────────────────────────────────────────────────────────────────
+
+.PHONY: lint
+lint:           ## Run all prompt-file linters (frontmatter + cross-link + required sections)
+	./scripts/lint-prompt-frontmatter.sh
+
+.PHONY: validate
+validate:       ## Run the full YAML schema validator for prompt files
+	$(VENV)/python scripts/validate-prompt-schema.py
+
+# ─── Composite ───────────────────────────────────────────────────────────────
+
+.PHONY: check
+check: lint validate sync-check  ## Run all checks without building
+	@echo "All checks passed."
