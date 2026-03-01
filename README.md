@@ -45,7 +45,7 @@ make check
 - [Beta Release Notes](BETA-RELEASE-NOTES.md)
 - [Pick Your Path](#pick-your-path)
 - [Available Stacks](#available-stacks)
-- [How Prompt Files Work (VS Code & Copilot)](#how-prompt-files-work-vs-code-copilot)
+- [How Prompt Files Work (VS Code Copilot)](#how-prompt-files-work-vs-code-copilot)
 - [Contributing](#contributing)
 
 ## For AI Agents
@@ -168,7 +168,7 @@ Each stack includes a `copilot-instructions.md` (base rules Copilot follows auto
 
 ---
 
-## How Prompt Files Work (VS Code & Copilot)
+## How Prompt Files Work (VS Code Copilot)
 
 When you place files in your project's `.github/` directory, VS Code Copilot picks them up automatically:
 
