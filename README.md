@@ -6,7 +6,7 @@ Seven-module curriculum + stack-specific `.prompt.md` templates for VS Code and 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://kunalsuri.github.io/prompt-engineering-playbook/)
-[![Build](https://img.shields.io/github/actions/workflow/status/kunalsuri/prompt-engineering-playbook/lint-markdown.yml?branch=main&label=checks)](https://github.com/kunalsuri/prompt-engineering-playbook/actions/workflows/lint-markdown.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/kunalsuri/prompt-engineering-playbook/quality-nonmarkdown.yml?branch=main&label=checks)](https://github.com/kunalsuri/prompt-engineering-playbook/actions/workflows/quality-nonmarkdown.yml)
 
 <p align="center">
   <a href="https://kunalsuri.github.io/prompt-engineering-playbook/">
