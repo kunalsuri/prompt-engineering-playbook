@@ -153,4 +153,6 @@ jobs:
           pip install -r requirements-docs.txt
 
       - name: Build MkDocs site
-        run: make build
+        run: |
+          make sync
+          mkdocs build --strict

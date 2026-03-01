@@ -3,9 +3,18 @@
     {
       "pattern": "^https?://",
       "comment": "Only check internal (relative) links; skip external URLs to avoid rate limits"
+    },
+    {
+      "pattern": "^mailto:",
+      "comment": "Email links are valid targets but markdown-link-check treats them as dead URLs"
     }
   ],
-  "replacementPatterns": [],
+  "replacementPatterns": [
+    {
+      "pattern": "^\\.\\./index\\.md$",
+      "replacement": "../README.md"
+    }
+  ],
   "retryOn429": true,
   "retryCount": 3,
   "aliveStatusCodes": [200, 206]
