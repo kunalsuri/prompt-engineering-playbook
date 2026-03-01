@@ -65,28 +65,25 @@ If you have an existing project, copy only the files you need. The following exa
 # Navigate to your project root
 cd /path/to/your-project
 
-# Create the .github directory structure
-mkdir -p .github/prompts
+# The simplest way is to clone the repository and copy the files you need:
+git clone https://github.com/kunalsuri/prompt-engineering-playbook.git /tmp/pe-playbook
 
-# Download the base instructions
-curl -o .github/copilot-instructions.md \
-  https://raw.githubusercontent.com/kunalsuri/prompt-engineering-playbook/main/prompts/python/copilot-instructions.md
+mkdir -p .github/prompts .github/instructions
 
-# Download all prompt files for the Python stack
-for prompt in $(curl -s https://api.github.com/repos/kunalsuri/prompt-engineering-playbook/contents/prompts/python/prompts | grep '"name"' | cut -d'"' -f4); do
-  curl -o ".github/prompts/${prompt}" \
-    "https://raw.githubusercontent.com/kunalsuri/prompt-engineering-playbook/main/prompts/python/prompts/${prompt}"
-done
+# Copy base instructions and Python prompt files
+cp /tmp/pe-playbook/prompts/python/copilot-instructions.md .github/
+cp -r /tmp/pe-playbook/prompts/python/prompts/*.prompt.md .github/prompts/
 
-# Download the shared Codacy instructions
-mkdir -p .github/instructions
-curl -o .github/instructions/codacy.instructions.md \
-  https://raw.githubusercontent.com/kunalsuri/prompt-engineering-playbook/main/prompts/shared/codacy.instructions.md
+# Copy shared code-quality instructions
+cp /tmp/pe-playbook/prompts/shared/codacy.instructions.md .github/instructions/
+
+# Cleanup
+rm -rf /tmp/pe-playbook
 ```
 
 After downloading, verify that the directory structure matches:
 
-```
+```text
 your-project/
 ├── .github/
 │   ├── copilot-instructions.md          # Base instructions for your stack
@@ -152,15 +149,15 @@ Let's walk through a concrete example: using the Python stack templates to gener
 
 If you are new to prompt engineering or want to deepen your understanding of the principles behind these templates, the `learn/` directory provides a seven-module curriculum:
 
-| Module | File | Topic |
-|--------|------|-------|
-| 0 | `00-orientation.md` | Story-first on-ramp — no jargon, no code |
-| 1 | `01-introduction.md` | What prompt engineering is and why it matters |
-| 2 | `02-core-principles.md` | Specificity, decomposition, iteration, evaluation |
-| 3 | `03-patterns.md` | Six major prompting patterns with worked examples |
-| 4 | `04-best-practices.md` | Token management, version control, team workflows |
-| 5 | `05-advanced-patterns.md` | RAG, adversarial robustness, multimodal, evaluation pipelines |
-| 6 | `06-agentic-patterns.md` | Plan-and-execute, reflection loops, multi-agent systems, agent safety |
+| Module | File                      | Topic                                                                 |
+|--------|---------------------------|-----------------------------------------------------------------------|
+| 0      | `00-orientation.md`       | Story-first on-ramp — no jargon, no code                              |
+| 1      | `01-introduction.md`      | What prompt engineering is and why it matters                         |
+| 2      | `02-core-principles.md`   | Specificity, decomposition, iteration, evaluation                     |
+| 3      | `03-patterns.md`          | Six major prompting patterns with worked examples                     |
+| 4      | `04-best-practices.md`    | Token management, version control, team workflows                     |
+| 5      | `05-advanced-patterns.md` | RAG, adversarial robustness, multimodal, evaluation pipelines         |
+| 6      | `06-agentic-patterns.md`  | Plan-and-execute, reflection loops, multi-agent systems, agent safety |
 
 Each module includes exercises. The `comparisons/` subdirectory provides deep-dive analyses of specific techniques referenced from the modules.
 

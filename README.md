@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=150&section=header&text=Prompt%20Engineering%20Playbook&fontSize=50&fontAlignY=35" width="100%"/>
+</p>
+
 # Prompt Engineering Playbook
 
 > A hands-on curriculum to learn prompt engineering from scratch — plus production-ready prompt templates for AI-assisted development. Works with any LLM: Mistral, Claude, Gemini, Copilot, ChatGPT and more including your Local GPT running via Ollama, vLLM, Llama.cpp etc.
@@ -11,7 +15,11 @@
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
 [![GitHub stars](https://img.shields.io/github/stars/kunalsuri/prompt-engineering-playbook?style=social)](https://github.com/kunalsuri/prompt-engineering-playbook)
 
-<br> 
+<p align="center">
+  <a href="https://kunalsuri.github.io/prompt-engineering-playbook/">
+    <b>🌐 View the Documentation Site →</b>
+  </a>
+</p>
 
 ---
 
@@ -32,8 +40,6 @@ Ready-to-use prompts for writing, research, analysis, communication, and decisio
 ### 🔧 [I want to **set up** my project →](GETTING-STARTED.md)
 
 Step-by-step guide to installing these templates in your own project (with first-class VS Code Copilot integration) and customizing templates for your team.
-
-<br> 
 
 ---
 
@@ -61,9 +67,23 @@ git clone https://github.com/kunalsuri/prompt-engineering-playbook.git
 cp -r prompt-engineering-playbook/prompts/python/prompts/*.prompt.md .github/prompts/
 ```
 
-<br> 
-
 ---
+
+
+## Learning Path
+
+```mermaid
+graph TD
+    A[Module 0: Orientation] --> B[Module 1: Introduction]
+    B --> C[Module 2: Core Principles]
+    C --> D[Module 3: Patterns]
+    D --> E[Module 4: Best Practices]
+    E --> F[Module 5: Advanced Patterns]
+    F --> G[Module 6: Agentic Patterns]
+    
+    D -.-> H[Prompt Templates]
+    F -.-> I[Labs & Comparisons]
+```
 
 ## What's Inside
 
@@ -100,9 +120,6 @@ cp -r prompt-engineering-playbook/prompts/python/prompts/*.prompt.md .github/pro
 
 ---
 
-<br> 
-
-
 ## Available Stacks
 
 | Stack | Instructions | Prompts | Setup Script |
@@ -115,8 +132,6 @@ cp -r prompt-engineering-playbook/prompts/python/prompts/*.prompt.md .github/pro
 Each stack includes a `copilot-instructions.md` (base rules Copilot follows automatically) and task-specific `.prompt.md` files (invoked on demand via Copilot Chat). The prompt content itself is model-agnostic — you can paste it into ChatGPT, Claude, Gemini, or any other LLM.
 
 ---
-
-<br> 
 
 ## How Prompt Files Work (VS Code & Copilot)
 
@@ -136,30 +151,24 @@ The YAML frontmatter `mode: 'agent'` enables Copilot to read files, run commands
 
 ---
 
-<br> 
-
 ## Contributing
 
 Contributions are welcome — whether it's fixing a typo, adding an exercise, or creating prompts for a new stack. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, commit conventions, and review checklists.
-
-<br> 
 
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-<br> 
+## ✍️ How to Cite & AI Usage
 
-## ✍️ How to Cite
+<details>
+<summary><b>Click to expand Citation details</b></summary>
+<br>
 
 If you use this framework to structure your research, paper framing, or methodology curriculum, please cite it using the following format:
 
-<br> 
-
 **APA Format:**
 > Suri, K. (2026). *Prompt Engineering Playbook*. GitHub. https://github.com/kunalsuri/prompt-engineering-playbook
-
-<br> 
 
 **BibTeX:**
 ```bibtex
@@ -171,25 +180,19 @@ If you use this framework to structure your research, paper framing, or methodol
   url          = {https://github.com/kunalsuri/prompt-engineering-playbook}
 }
 ```
+</details>
 
-<br> 
-
-## 💡 Declaration of AI Usage
+<details>
+<summary><b>Click to expand AI Usage Declaration</b></summary>
+<br>
 
 * **Coding:** GitHub Copilot / Microsoft GitHub Pro, Google Antigravity, and open models running via Ollama were used within Visual Studio Code to support the coding of this project, primarily for code generation, completion, and debugging. All AI-generated code was independently reviewed, tested, and refined by the author(s). The author(s) takes full responsibility for the correctness and integrity of all code in this work.
 
 * **Writing & Ideation:**  Large language model (LLM) tools — specifically Anthropic Claude and Google Gemini Pro — were used to assist with brainstorming, structural organization, and language refinement during the writing process. All underlying arguments, intellectual contributions, and conclusions originate with the author(s). All AI-assisted material was critically reviewed and substantially revised by the author(s), who takes full responsibility for the accuracy, originality, and integrity of the published content.
-
-<br/>
-
-<br/>
+</details>
 
 <div align="center">
 
 **⭐ If you find this work interesting, please consider starring the repository.**
-
-<br/>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer" width="100%"/>
 
 </div>
