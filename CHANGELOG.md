@@ -7,7 +7,9 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-- No changes yet.
+- Added DOI/archive metadata files: `CITATION.cff` and `.zenodo.json`.
+- Fixed `prompts/README.md` backlink to root `README.md`.
+- Clarified that prompt files are portable to any coding agent, with VS Code + GitHub Copilot as the tested environment.
 
 ## [0.1.0] - 2026-03-01
 

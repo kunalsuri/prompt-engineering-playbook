@@ -2,7 +2,7 @@
 
 > Learn prompt engineering end-to-end and apply it with prompt templates for AI-assisted development.
 
-Seven-module curriculum + stack-specific `.prompt.md` templates for VS Code and GitHub Copilot.
+Seven-module curriculum + stack-specific `.prompt.md` templates that can be used with any coding agent.
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -17,7 +17,7 @@ Seven-module curriculum + stack-specific `.prompt.md` templates for VS Code and 
 
 ---
 
-> **Requirement:** Requires VS Code 1.96+ and GitHub Copilot Pro/Enterprise to use prompt files as agents.
+> **Tested environment:** Verified in VS Code 1.96+ with GitHub Copilot Pro/Enterprise. The prompt files are plain Markdown and can be adapted for other coding agents.
 
 > **Safety requirement (sandbox first):** Run repository scripts only inside a local Python virtual environment (`.venv`) to avoid polluting system packages and to reduce risk of accidental environment breakage.
 
@@ -199,7 +199,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ### Citation details
 
-If you use this framework to structure your research, paper framing, or methodology curriculum, please cite it using the following format and check [references.md](references.md) for the bibliography:
+If you use this framework to structure your research, paper framing, or methodology curriculum, please cite it using the following format and check [references.md](references.md) for the bibliography. Machine-readable citation and archival metadata are also provided in [CITATION.cff](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/CITATION.cff) and [.zenodo.json](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/.zenodo.json).
 
 **APA Format:**
 > Suri, K. (2026). *Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development*. GitHub. https://github.com/kunalsuri/prompt-engineering-playbook
