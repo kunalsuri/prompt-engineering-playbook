@@ -4,6 +4,7 @@
 
 Seven-module curriculum + stack-specific `.prompt.md` templates for VS Code and GitHub Copilot.
 
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://kunalsuri.github.io/prompt-engineering-playbook/)
 [![Build](https://img.shields.io/github/actions/workflow/status/kunalsuri/prompt-engineering-playbook/quality-nonmarkdown.yml?branch=main&label=checks)](https://github.com/kunalsuri/prompt-engineering-playbook/actions/workflows/quality-nonmarkdown.yml)
