@@ -20,7 +20,9 @@ on:
       - 'GETTING-STARTED.md'
       - 'CONTRIBUTING.md'
       - 'CHANGELOG.md'
+      - 'BETA-RELEASE-NOTES.md'
       - 'references.md'
+      - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:              # allow manual re-deploy
 
 permissions:
@@ -38,6 +40,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
@@ -90,6 +95,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
