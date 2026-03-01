@@ -510,11 +510,11 @@ Follow the plan-and-execute workflow:
 
 ---
 
-## 6.8 Reasoning Models and the Future of Prompt Engineering
+## 6.9 Reasoning Models and the Future of Prompt Engineering
 
 A significant development in the LLM landscape is the emergence of **reasoning models** — models that allocate additional computation at inference time to "think" before responding (sometimes called "test-time compute scaling" [Snell2024]). Examples include OpenAI's o1/o3 series and other models that use chain-of-thought internally without explicit prompting.
 
-### 6.8.1 What Changes with Reasoning Models
+### 6.9.1 What Changes with Reasoning Models
 
 **Less prompting, more delegation.** With reasoning models, many traditional prompt-engineering techniques become less necessary:
 
@@ -530,7 +530,7 @@ A significant development in the LLM landscape is the emergence of **reasoning m
 - **Safety and guardrails** — defensive prompting, tool-use constraints, and scope limitations are even more critical when models operate autonomously.
 - **Evaluation** — structured testing and monitoring become more important, not less, as models handle more complex tasks.
 
-### 6.8.2 Practical Guidance
+### 6.9.2 Practical Guidance
 
 **Know your model.** Before applying traditional techniques, check whether your model uses internal reasoning. If it does:
 - Start with a simple, direct prompt and evaluate the output quality.

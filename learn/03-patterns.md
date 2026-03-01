@@ -285,3 +285,8 @@ When combining patterns, be aware of **token budget trade-offs**. Few-shot examp
 - [Wang2023] Wang, X., Wei, J., Schuurmans, D., Le, Q., Chi, E., Narang, S., … & Zhou, D. (2023). Self-consistency improves chain of thought reasoning in language models. *ICLR*.
 - [Wei2022] Wei, J., et al. (2022). Chain-of-thought prompting elicits reasoning in large language models. *NeurIPS 35*, 24824–24837.
 - [Yao2023] Yao, S., et al. (2023). ReAct: Synergizing reasoning and acting in language models. *ICLR*.
+
+---
+
+[← Module 2](02-core-principles.md) · [Module 4 →](04-best-practices.md) · [Back to curriculum](README.md)
+

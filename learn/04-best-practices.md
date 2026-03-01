@@ -200,7 +200,7 @@ This is the exact workflow used by this repository (`.github/workflows/lint-mark
 <details>
 <summary><strong>Q2: Name three prompt anti-patterns described in §4.5.</strong></summary>
 
-**Answer:** Any three of: **vague or underspecified instructions**, **missing output format constraints**, **overly long system prompts that dilute focus**, **no negative examples or exclusion criteria**, **testing on only one model**, **no iteration log or baseline to compare against**.
+**Answer:** Any three of the five named anti-patterns: **The Kitchen-Sink Prompt** (cramming every concern into a single prompt, diluting focus — §4.5 ¶1), **The Implicit Assumption** (relying on the model to infer unstated requirements — §4.5 ¶2), **Copy-Paste Drift** (duplicating prompt content across files instead of referencing a shared source — §4.5 ¶3), **The Untested Prompt** (deploying without testing against representative inputs — §4.5 ¶4), **The Stale Prompt** (referencing outdated tools, APIs, or practices — §4.5 ¶5).
 
 </details>
 
@@ -231,3 +231,7 @@ This is the exact workflow used by this repository (`.github/workflows/lint-mark
 ## References
 
 - [Liu2024] Liu, N. F., Lin, K., Hewitt, J., Paranjape, A., Bevilacqua, M., Petroni, F., & Liang, P. (2024). Lost in the middle: How language models use long contexts. *Transactions of the Association for Computational Linguistics, 12*, 157–173.
+
+---
+
+[← Module 3](03-patterns.md) · [Module 5 →](05-advanced-patterns.md) · [Back to curriculum](README.md)

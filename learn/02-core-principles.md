@@ -120,3 +120,8 @@ The key principle is that evaluation effort should be proportional to the prompt
 
 - [Wei2022] Wei, J., Wang, X., Schuurmans, D., Bosma, M., Ichter, B., Xia, F., … & Zhou, D. (2022). Chain-of-thought prompting elicits reasoning in large language models. *Advances in Neural Information Processing Systems, 35*, 24824–24837.
 - [Yao2023] Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023). ReAct: Synergizing reasoning and acting in language models. *International Conference on Learning Representations (ICLR)*.
+
+---
+
+[← Module 1](01-introduction.md) · [Module 3 →](03-patterns.md) · [Back to curriculum](README.md)
+
