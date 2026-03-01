@@ -1,6 +1,6 @@
 # ⚡ Prompt Templates
 
-Reusable prompt templates organized by technology stack. Optimized for VS Code & GitHub Copilot (copy files into `.github/` and start immediately), but the prompt content is model-agnostic — use it with ChatGPT, Claude, Gemini, or any LLM.
+Reusable prompt templates organized by technology stack. The prompt content can be used with any coding agent; the repository workflow is tested and optimized for VS Code & GitHub Copilot (copy files into `.github/` and start immediately). You can also use the same prompt content with ChatGPT, Claude, Gemini, or any LLM.
 
 ---
 
@@ -111,4 +111,4 @@ For the full walkthrough including customization and troubleshooting, see [GETTI
 
 ---
 
-[← Back to main README](../index.md)
+[← Back to main README](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/README.md)

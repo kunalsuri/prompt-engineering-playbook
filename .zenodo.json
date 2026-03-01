@@ -1,0 +1,20 @@
+{
+  "title": "Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development",
+  "upload_type": "software",
+  "description": "The Prompt Engineering Playbook is an educational repository that includes a seven-module curriculum on prompt engineering and reusable prompt templates that can be adapted to any coding agent. The templates are tested primarily in VS Code with GitHub Copilot workflows.",
+  "creators": [
+    {
+      "name": "Suri, Kunal"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "prompt engineering",
+    "large language models",
+    "developer education",
+    "github copilot",
+    "vscode",
+    "coding agents"
+  ]
+}

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata from this file."
+title: "Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development"
+type: software
+authors:
+  - family-names: "Suri"
+    given-names: "Kunal"
+repository-code: "https://github.com/kunalsuri/prompt-engineering-playbook"
+url: "https://github.com/kunalsuri/prompt-engineering-playbook"
+license: MIT
+version: 0.1.0
+date-released: 2026-03-01
+abstract: "An educational prompt engineering playbook with a seven-module curriculum and reusable prompt templates for VS Code and GitHub Copilot."
+keywords:
+  - "prompt engineering"
+  - "large language models"
+  - "developer tools"
+  - "github copilot"
+  - "education"
