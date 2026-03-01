@@ -1,0 +1,156 @@
+name: Lint Markdown
+
+on:
+  push:
+    branches: [main]
+    paths: ['**/*.md']
+  pull_request:
+    branches: [main]
+    paths: ['**/*.md']
+
+permissions:
+  contents: read
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Check internal Markdown links
+        # NOTE: mlc-config.json deliberately ignores all external URLs (^https?://)
+        # to avoid rate-limit failures in CI. Only relative/internal links are checked.
+        # To also verify external links, remove the ignorePatterns entry in mlc-config.json.
+        uses: gaurav-nelson/github-action-markdown-link-check@5c5dfc0ac2e225883c0e5f03a85311ec2830d368 # v1
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.github/workflows/mlc-config.json'
+          folder-path: '.'
+          file-extension: '.md'
+
+  prompt-frontmatter-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Validate prompt file frontmatter
+        run: ./scripts/lint-prompt-frontmatter.sh
+
+  prompt-token-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Check prompt file token budgets
+        run: |
+          MAX_TOKENS=4000
+          exit_code=0
+          for file in prompts/*/prompts/*.prompt.md; do
+            chars=$(wc -c < "$file")
+            est_tokens=$((chars / 4))
+            if [ "$est_tokens" -gt "$MAX_TOKENS" ]; then
+              echo "WARN: $file ≈ $est_tokens tokens (limit: $MAX_TOKENS)"
+              exit_code=1
+            fi
+          done
+          if [ "$exit_code" -eq 1 ]; then
+            echo ""
+            echo "One or more prompt files exceed the estimated token budget."
+            echo "This is a warning — large prompts may consume excessive context window space."
+            echo "Consider decomposing large prompts or moving shared content to referenced files."
+          fi
+          # Token budget is advisory, not blocking — always exit 0
+          exit 0
+
+  docs-sync-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Create docs_src symlinks
+        run: |
+          mkdir -p docs_src
+          for path in learn/learn prompts/prompts assets/assets docs_src/learn/learn docs_src/prompts/prompts docs_src/assets/assets; do
+            if [ -L "$path" ]; then rm "$path"; fi
+          done
+
+          link() {
+            src="$1"
+            dst="$2"
+            src_check="$(dirname "$dst")/$src"
+            if [ ! -e "$src_check" ]; then
+              echo "ERROR: Source path not found: $src"
+              exit 1
+            fi
+            if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+              echo "ERROR: Destination exists and is not a symlink: $dst"
+              exit 1
+            fi
+            ln -sfn "$src" "$dst"
+          }
+
+          link ../README.md docs_src/index.md
+          link ../GETTING-STARTED.md docs_src/GETTING-STARTED.md
+          link ../CONTRIBUTING.md docs_src/CONTRIBUTING.md
+          link ../CHANGELOG.md docs_src/CHANGELOG.md
+          link ../BETA-RELEASE-NOTES.md docs_src/BETA-RELEASE-NOTES.md
+          link ../references.md docs_src/references.md
+          link ../LICENSE docs_src/LICENSE
+          link ../learn docs_src/learn
+          link ../prompts docs_src/prompts
+          link ../assets docs_src/assets
+
+      - name: Verify docs_src symlinks resolve correctly
+        run: |
+          errors=0
+          for target in docs_src/index.md docs_src/GETTING-STARTED.md docs_src/CONTRIBUTING.md \
+                         docs_src/CHANGELOG.md docs_src/BETA-RELEASE-NOTES.md docs_src/references.md docs_src/LICENSE docs_src/learn docs_src/prompts docs_src/assets; do
+            if [ ! -e "$target" ]; then
+              echo "ERROR: Symlink target does not resolve: $target"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            echo "FAILED — $errors broken symlink(s) detected."
+            exit 1
+          fi
+          echo "PASSED — all docs_src/ symlinks resolve correctly."
+
+  recursive-symlink-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Ensure no recursive symlinks are tracked
+        run: |
+          errors=0
+          for path in learn/learn prompts/prompts assets/assets docs_src/learn/learn docs_src/prompts/prompts docs_src/assets/assets; do
+            if [ -L "$path" ]; then
+              echo "ERROR: Recursive symlink detected: $path -> $(readlink "$path")"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            echo "FAILED — $errors recursive symlink(s) detected."
+            exit 1
+          fi
+          echo "PASSED — no recursive symlinks detected."
+
+  docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Install docs dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Build MkDocs site
+        run: make build

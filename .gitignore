@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Build outputs
+_site/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Local logs
+*.log
+logs/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Misc
+.gitignore copy

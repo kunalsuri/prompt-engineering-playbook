@@ -1,0 +1,51 @@
+# Prompt Engineering Playbook
+> A hands-on curriculum to learn prompt engineering from scratch — plus reusable prompt templates for AI-assisted development.
+
+<purpose>
+This repository serves two primary purposes:
+1. **Curriculum/Documentation (`learn/`)**: A seven-module course for learning prompt engineering principles, patterns, and best practices.
+2. **Prompt Templates (`prompts/`)**: Reusable `.prompt.md` files meant for agentic workflows (like GitHub Copilot in VS Code). 
+</purpose>
+
+## Structure
+
+<structure>
+- `/learn` - Markdown documentation for the 7 learning modules. Deep dive comparisons, examples, and the underlying philosophy.
+- `/prompts` - Read-to-use prompt files for different tech stacks.
+    - `/prompts/python/` - For Python backend/ML codebases.
+    - `/prompts/react-typescript/` - For React+TS frontend codebases.
+    - `/prompts/react-fastapi/` - For Full-stack React+FastAPI codebases.
+    - `/prompts/nodejs-typescript/` - For Node.js+TS backend codebases.
+- `/scripts` - Automation scripts to install these prompts into existing repositories.
+- `GETTING-STARTED.md` - How a developer uses these templates.
+- `ROADMAP.md` - The future milestones for this repository.
+</structure>
+
+## For AI Agents traversing this repository
+If you are an AI reading this file, your job is likely to summarize, navigate, or assist the user with understanding the concepts of prompt engineering defined exclusively in `/learn`, or to copy the predefined prompt templates in `/prompts` to a target repository as described in `GETTING-STARTED.md`.
+
+## Task Routing Map
+
+```json
+{
+    "understand_project": "README.md",
+    "install_templates": "GETTING-STARTED.md",
+    "find_prompt_stacks": "prompts/README.md",
+    "learn_curriculum": "learn/README.md",
+    "contribute_changes": "CONTRIBUTING.md",
+    "governance_and_policies": [
+        "SECURITY.md",
+        "CODE_OF_CONDUCT.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "ROADMAP.md"
+    ]
+}
+```
+
+## Source-of-Truth Boundaries
+
+- Treat top-level docs (`README.md`, `GETTING-STARTED.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `references.md`) as canonical sources.
+- Treat `learn/` and `prompts/` as canonical content trees.
+- Treat `docs_src/` as docs-site linkage and publishing surface, not an independent authoring source.
+- Do not infer unsupported capabilities or hidden modules beyond files present in this repository.

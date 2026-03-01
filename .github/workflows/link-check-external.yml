@@ -1,0 +1,29 @@
+name: Link Check - External URLs
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Validate external links in Markdown
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --exclude-mail
+            --retry-wait-time 2
+            --max-retries 3
+            --accept 200,206,429
+            --exclude-path .github/**
+            './**/*.md'

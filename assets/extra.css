@@ -1,0 +1,44 @@
+/* Prompt Engineering Playbook — extra styles for MkDocs Material */
+
+/* Slightly tighter content area on wide screens */
+.md-grid {
+  max-width: 1220px;
+}
+
+/* Hero-ish treatment for the home page h1 */
+.md-content h1 {
+  font-weight: 700;
+}
+
+/* Navigation tab text */
+.md-tabs__link {
+  font-weight: 500;
+}
+
+/* Code block tweaks */
+.highlight code {
+  font-size: 0.82rem;
+}
+
+/* Table improvements */
+.md-typeset table:not([class]) th {
+  background-color: var(--md-default-fg-color--lightest);
+  white-space: nowrap;
+}
+
+/* Badge-like inline code in tables */
+.md-typeset table:not([class]) code {
+  font-size: 0.78rem;
+  padding: 0.1em 0.4em;
+}
+
+/* Prompt template YAML frontmatter — visually distinct */
+.md-typeset .language-yaml {
+  border-left: 3px solid var(--md-accent-fg-color);
+}
+
+/* Softer blockquotes */
+.md-typeset blockquote {
+  border-left-color: var(--md-accent-fg-color);
+  color: var(--md-default-fg-color--light);
+}
