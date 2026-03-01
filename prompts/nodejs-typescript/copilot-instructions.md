@@ -1,4 +1,3 @@
-```instructions
 # Node.js & TypeScript Development Standards
 
 **Target Runtime: Node.js 20 LTS+  |  TypeScript 5.x**
@@ -61,4 +60,3 @@ Configure tooling via root-level config files:
 - **`eslint.config.js`**: `@typescript-eslint/recommended-type-checked` ruleset
 - **`vitest.config.ts`**: coverage provider `v8`, threshold 80%
 - **`.pre-commit-config.yaml`** (optional): run `eslint`, `prettier --check`, `tsc --noEmit` on staged files
-```

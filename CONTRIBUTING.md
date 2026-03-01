@@ -254,6 +254,8 @@ make sync
 
 This mirrors `learn/` → `docs_src/learn/` and `prompts/` → `docs_src/prompts/` so that the MkDocs build stays consistent. CI will fail the `docs-sync-check` job if these trees differ.
 
+Note: `make sync` creates symlinks in `docs_src/`; it does not duplicate file contents. Do not add self-referential symlinks inside `learn/`, `prompts/`, or `docs/assets/`.
+
 ---
 
 ## Prompt Review Checklist
@@ -282,7 +284,7 @@ Before submitting new or modified curriculum content (`learn/` modules or compar
 - [ ] **Worked examples** — at least one concrete, worked example demonstrates each key concept.
 - [ ] **Cross-references** — connections to comparison documents, production templates, and other modules are explicitly noted.
 - [ ] **Exercises** — at least two exercises are included, each with clear instructions and implicit or explicit success criteria.
-- [ ] **Citations** — all claims are properly cited using `references.md` entries.
+- [ ] **Citations** — all empirical/performance/factual claims are cited using `references.md` entries. Narrative examples, exercises, and purely instructional templates may omit citations when no external claim is made.
 - [ ] **Audience calibration** — content is appropriate for the target audience (graduate students, postdocs, researchers, and professional developers; no prior prompt engineering experience assumed). Neither too elementary nor assumes niche domain expertise without explanation.
 
 ---

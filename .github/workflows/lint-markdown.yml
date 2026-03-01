@@ -93,3 +93,41 @@ jobs:
             exit 1
           fi
           echo "PASSED — all docs_src/ symlinks resolve correctly."
+
+  recursive-symlink-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure no recursive symlinks are tracked
+        run: |
+          errors=0
+          for path in learn/learn prompts/prompts docs/assets/assets; do
+            if [ -L "$path" ]; then
+              echo "ERROR: Recursive symlink detected: $path -> $(readlink "$path")"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ "$errors" -gt 0 ]; then
+            echo "FAILED — $errors recursive symlink(s) detected."
+            exit 1
+          fi
+          echo "PASSED — no recursive symlinks detected."
+
+  docs-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install docs dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-docs.txt
+
+      - name: Build MkDocs site
+        run: make build

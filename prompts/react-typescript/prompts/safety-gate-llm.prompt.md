@@ -1,7 +1,7 @@
 ---
 mode: 'agent'
 description: 'Pre-execution safety gate for TypeScript/JavaScript code with confidence scoring'
-version: '1.0.0'
+version: '1.1.0'
 ---
 
 > **Learn why this works:** [Adversarial Robustness + Role-Playing](../../../learn/05-advanced-patterns.md#52-adversarial-robustness-and-prompt-injection)
@@ -27,8 +27,7 @@ DEFINITION OF "REASONABLY SAFE":
 - No evidence of malicious intent or obfuscation
 - Resource usage is bounded and predictable
 
-First, provide a step-by-step "chain of thought" analysis of the code, explaining your reasoning.
-Then, based on your analysis, provide a final JSON output.
+Perform your detailed reasoning internally. Then provide only the final JSON output plus concise evidence-based rationales in the schema fields.
 
 Analyze the code from these angles:
 
@@ -100,7 +99,7 @@ Schema:
 RULES:
 - Be conservative: if you cannot see the full behavior or something looks obfuscated, treat it as "unknown" or "risky", not "safe".
 - Do NOT add new features or refactors; only evaluate safety.
-- If information is missing (e.g. no package.json or partial code), explicitly say what you cannot judge in your chain-of-thought analysis.
+- If information is missing (e.g. no package.json or partial code), explicitly note what cannot be judged in `summary` and `required_changes_before_running`.
 - Set `context_truncated` to true if files were too large to analyze completely.
 - Assign confidence scores honestly: 0.9+ for clear evidence, 0.5-0.8 for suspicious patterns, <0.5 for uncertainty.
 - Order required_changes by priority (1 = must fix before running, 2 = should fix soon, 3 = good practice).

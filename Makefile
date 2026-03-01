@@ -55,6 +55,21 @@ sync-check:     ## Verify docs_src/ symlinks resolve correctly
 	fi; \
 	echo "PASSED — all docs_src/ symlinks resolve correctly."
 
+.PHONY: recursive-symlink-check
+recursive-symlink-check: ## Ensure no recursive/self-referential symlinks exist in tracked content paths
+	@errors=0; \
+	for path in learn/learn prompts/prompts docs/assets/assets; do \
+	  if [ -L "$$path" ]; then \
+	    echo "ERROR: Recursive symlink detected: $$path -> $$(readlink "$$path")"; \
+	    errors=$$((errors + 1)); \
+	  fi; \
+	done; \
+	if [ "$$errors" -gt 0 ]; then \
+	  echo "FAILED — $$errors recursive symlink(s) detected."; \
+	  exit 1; \
+	fi; \
+	echo "PASSED — no recursive symlinks detected."
+
 # ─── Build & Serve ───────────────────────────────────────────────────────────
 
 .PHONY: build
@@ -78,5 +93,5 @@ validate:       ## Run the full YAML schema validator for prompt files
 # ─── Composite ───────────────────────────────────────────────────────────────
 
 .PHONY: check
-check: lint validate sync-check  ## Run all checks without building
+check: lint validate sync-check recursive-symlink-check build  ## Run full checks including docs build
 	@echo "All checks passed."

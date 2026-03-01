@@ -35,6 +35,12 @@ All notable changes to this repository are documented in this file. This project
 - Updated module count from "five-module" / "six-module" to "seven-module" across all documentation.
 - Updated README directory tree to include `nodejs-typescript` stack.
 - Added CODEOWNERS entry for `/prompts/nodejs-typescript/`.
+- Removed recursive/self-referential symlinks (`learn/learn`, `prompts/prompts`, `docs/assets/assets`) that caused MkDocs path recursion and unstable builds.
+- Hardened local and CI validation with explicit recursive-symlink checks plus a full MkDocs build gate in `.github/workflows/lint-markdown.yml`.
+- Fixed contradictory constraints in `prompts/nodejs-typescript/prompts/generate-openapi-spec.prompt.md` and bumped to `1.1.0`.
+- Updated `prompts/react-typescript/prompts/safety-gate-llm.prompt.md` to remove explicit chain-of-thought output requirements and bumped to `1.1.0`.
+- Corrected markdown formatting in `prompts/nodejs-typescript/copilot-instructions.md` by removing erroneous wrapper code fences.
+- Clarified `CONTRIBUTING.md` guidance for symlink-based docs sync and citation scope for empirical vs narrative content.
 
 ---
 

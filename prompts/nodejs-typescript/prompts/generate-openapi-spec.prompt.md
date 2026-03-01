@@ -1,7 +1,7 @@
 ---
 mode: 'agent'
 description: 'Generate an OpenAPI 3.1 YAML specification from TypeScript types and route definitions'
-version: '1.0.0'
+version: '1.1.0'
 ---
 
 > **Learn why this works:** [Constrained Output + Specificity](../../../learn/03-patterns.md#36-pattern-5-constrained-output)
@@ -36,8 +36,8 @@ Analyse the provided TypeScript route handlers, zod schemas, and type definition
 
 # Constraints
 
-- Output only valid OpenAPI 3.1 YAML. No JSON. No prose outside YAML comments.
-- Use `nullable: false` (OpenAPI 3.1 uses union with `null`, not `nullable` keyword).
+- Output only valid OpenAPI 3.1 YAML. No JSON.
+- Do not use the OpenAPI 3.0 `nullable` keyword. In OpenAPI 3.1, represent nullable fields with JSON Schema union types (for example: `type: ["string", "null"]`).
 - All schema properties must have `description` fields.
 - Arrays must have `minItems`/`maxItems` where business logic implies bounds.
 - No circular `$ref` chains.
@@ -54,4 +54,4 @@ info:
   ...
 ```
 
-After the YAML block, output a brief **Validation Instructions** section listing the commands to lint and preview the spec.
+After the YAML block, add YAML comments titled `# Validation Instructions` listing the commands to lint and preview the spec.

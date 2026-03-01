@@ -16,6 +16,7 @@ ln -sf ../GETTING-STARTED.md docs_src/GETTING-STARTED.md
 ln -sf ../CONTRIBUTING.md    docs_src/CONTRIBUTING.md
 ln -sf ../CHANGELOG.md       docs_src/CHANGELOG.md
 ln -sf ../references.md      docs_src/references.md
+ln -sf ../LICENSE            docs_src/LICENSE
 ln -sf ../learn              docs_src/learn
 ln -sf ../prompts            docs_src/prompts
 ln -sf ../docs/assets        docs_src/assets
