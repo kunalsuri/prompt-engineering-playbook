@@ -1,6 +1,6 @@
 # Prompt Engineering Playbook
 
-> Production-ready prompts for AI-assisted development with VS Code & GitHub Copilot, plus a hands-on curriculum to learn prompt engineering from scratch.
+> A hands-on curriculum to learn prompt engineering from scratch — plus production-ready prompt templates for AI-assisted development. Works with any LLM: ChatGPT, Claude, Gemini, Copilot, Mistral, and more.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -17,7 +17,7 @@ A seven-module curriculum that takes you from first principles through advanced 
 
 ### ⚡ [I want to **use** prompt templates →](prompts/)
 
-Copy-paste-ready prompt files for Python, React/TypeScript, React + FastAPI, and Node.js/TypeScript projects. Designed for VS Code Copilot's agent mode. Pick your stack, grab the files, and start building.
+Copy-paste-ready prompt files for Python, React/TypeScript, React + FastAPI, and Node.js/TypeScript projects. Optimized for VS Code Copilot's agent mode, but the prompt content works with any LLM. Pick your stack, grab the files, and start building.
 
 ### 📚 [I want **20 copy-paste recipes** for everyday tasks →](learn/cookbook.md)
 
@@ -25,7 +25,7 @@ Ready-to-use prompts for writing, research, analysis, communication, and decisio
 
 ### 🔧 [I want to **set up** my project →](GETTING-STARTED.md)
 
-Step-by-step guide to installing these templates in your own project, understanding the VS Code Copilot prompt-file mechanism, and customizing templates for your team.
+Step-by-step guide to installing these templates in your own project (with first-class VS Code Copilot integration) and customizing templates for your team.
 
 <br> 
 
@@ -106,13 +106,13 @@ cp -r prompt-engineering-playbook/prompts/python/prompts/*.prompt.md .github/pro
 | **React + FastAPI** | [copilot-instructions.md](prompts/react-fastapi/copilot-instructions.md) | [3 prompts](prompts/react-fastapi/prompts/) | [setup.sh](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/scripts/react-fastapi/setup.sh) |
 | **Node.js + TypeScript** | [copilot-instructions.md](prompts/nodejs-typescript/copilot-instructions.md) | [4 prompts](prompts/nodejs-typescript/prompts/) | [setup.sh](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/scripts/nodejs-typescript/setup.sh) |
 
-Each stack includes a `copilot-instructions.md` (base rules Copilot follows automatically) and task-specific `.prompt.md` files (invoked on demand via Copilot Chat).
+Each stack includes a `copilot-instructions.md` (base rules Copilot follows automatically) and task-specific `.prompt.md` files (invoked on demand via Copilot Chat). The prompt content itself is model-agnostic — you can paste it into ChatGPT, Claude, Gemini, or any other LLM.
 
 ---
 
 <br> 
 
-## How Copilot Prompt Files Work
+## How Prompt Files Work (VS Code & Copilot)
 
 When you place files in your project's `.github/` directory, VS Code Copilot picks them up automatically:
 

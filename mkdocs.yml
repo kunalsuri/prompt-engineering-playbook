@@ -1,7 +1,8 @@
 site_name: Prompt Engineering Playbook
 site_description: >-
-  Production-ready prompts for AI-assisted development with VS Code & GitHub Copilot,
-  plus a hands-on curriculum to learn prompt engineering from scratch.
+  A hands-on curriculum to learn prompt engineering from scratch — plus
+  production-ready prompt templates for AI-assisted development. Works with
+  any LLM: ChatGPT, Claude, Gemini, Copilot, Mistral, and more.
 site_url: https://kunalsuri.github.io/prompt-engineering-playbook/
 repo_url: https://github.com/kunalsuri/prompt-engineering-playbook
 repo_name: kunalsuri/prompt-engineering-playbook
@@ -60,90 +61,90 @@ nav:
   - Getting Started: GETTING-STARTED.md
 
   - Curriculum:
-    - learn/README.md
-    - Module 0 — Orientation: learn/00-orientation.md
-    - Module 1 — Introduction: learn/01-introduction.md
-    - Module 2 — Core Principles: learn/02-core-principles.md
-    - Module 3 — Patterns: learn/03-patterns.md
-    - Module 4 — Best Practices: learn/04-best-practices.md
-    - Module 5 — Advanced Patterns: learn/05-advanced-patterns.md
-    - Module 6 — Agentic Patterns: learn/06-agentic-patterns.md
-    - Progress Tracker: learn/progress-tracker.md
+      - learn/README.md
+      - Module 0 — Orientation: learn/00-orientation.md
+      - Module 1 — Introduction: learn/01-introduction.md
+      - Module 2 — Core Principles: learn/02-core-principles.md
+      - Module 3 — Patterns: learn/03-patterns.md
+      - Module 4 — Best Practices: learn/04-best-practices.md
+      - Module 5 — Advanced Patterns: learn/05-advanced-patterns.md
+      - Module 6 — Agentic Patterns: learn/06-agentic-patterns.md
+      - Progress Tracker: learn/progress-tracker.md
 
   - Guides:
-    - Beginner's Guide: learn/beginners-guide.md
-    - Cheat Sheet: learn/cheatsheet.md
-    - Prompt Debugging: learn/prompt-debugging.md
-    - Meta-Prompting: learn/meta-prompting.md
-    - CI/CD Integration: learn/ci-cd-integration.md
-    - Cookbook (20 Recipes): learn/cookbook.md
-    - Prompt Builder: https://kunalsuri.github.io/prompt-engineering-playbook/docs/
-    - Glossary: learn/glossary.md
+      - Beginner's Guide: learn/beginners-guide.md
+      - Cheat Sheet: learn/cheatsheet.md
+      - Prompt Debugging: learn/prompt-debugging.md
+      - Meta-Prompting: learn/meta-prompting.md
+      - CI/CD Integration: learn/ci-cd-integration.md
+      - Cookbook (20 Recipes): learn/cookbook.md
+      - Prompt Builder: https://kunalsuri.github.io/prompt-engineering-playbook/docs/
+      - Glossary: learn/glossary.md
 
   - Comparisons:
-    - Chain-of-Thought: learn/comparisons/chain-of-thought-comparison.md
-    - Few-Shot: learn/comparisons/few-shot-comparison.md
-    - ReAct: learn/comparisons/react-comparison.md
-    - Instruction Tuning: learn/comparisons/instruction-tuning-comparison.md
-    - PromptSource: learn/comparisons/promptsource-comparison.md
-    - Adversarial Robustness: learn/comparisons/adversarial-robustness-comparison.md
-    - Automatic Optimization: learn/comparisons/automatic-prompt-optimization.md
-    - Cross-Model Portability: learn/comparisons/cross-model-portability.md
+      - Chain-of-Thought: learn/comparisons/chain-of-thought-comparison.md
+      - Few-Shot: learn/comparisons/few-shot-comparison.md
+      - ReAct: learn/comparisons/react-comparison.md
+      - Instruction Tuning: learn/comparisons/instruction-tuning-comparison.md
+      - PromptSource: learn/comparisons/promptsource-comparison.md
+      - Adversarial Robustness: learn/comparisons/adversarial-robustness-comparison.md
+      - Automatic Optimization: learn/comparisons/automatic-prompt-optimization.md
+      - Cross-Model Portability: learn/comparisons/cross-model-portability.md
 
   - Examples & Labs:
-    - learn/prompt-examples/README.md
-    - Patterns in Practice: learn/prompt-examples/prompt-patterns-in-practice.md
-    - Advanced Examples: learn/prompt-examples/advanced-patterns-in-practice.md
-    - Before & After Gallery: learn/before-and-after-gallery.md
-    - Exercise Solutions: learn/solutions/exercise-solutions.md
-    - Labs: learn/labs/README.md
-    - Lab 5 — Tool-Calling: learn/labs/lab_05_tool_calling.ipynb
-    - Lab 6 — Agentic Plan-Execute: learn/labs/lab_06_agentic_plan_execute.ipynb
-    - Failure Gallery: learn/labs/failure-gallery/README.md
-    - Existing Codebase Guide: learn/prompt-engineering-existing-codebase.md
-    - Architecture Decision Records:
-      - learn/decisions/README.md
-      - Few-Shot over Fine-Tuning: learn/decisions/001-few-shot-over-fine-tuning.md
-      - Split Planner-Executor: learn/decisions/002-split-planner-executor.md
-      - Add Safety Gate: learn/decisions/003-add-safety-gate.md
-      - Structured Output Schema: learn/decisions/004-structured-output-schema.md
-    - Research Track: learn/research/README.md
+      - learn/prompt-examples/README.md
+      - Patterns in Practice: learn/prompt-examples/prompt-patterns-in-practice.md
+      - Advanced Examples: learn/prompt-examples/advanced-patterns-in-practice.md
+      - Before & After Gallery: learn/before-and-after-gallery.md
+      - Exercise Solutions: learn/solutions/exercise-solutions.md
+      - Labs: learn/labs/README.md
+      - Lab 5 — Tool-Calling: learn/labs/lab_05_tool_calling.ipynb
+      - Lab 6 — Agentic Plan-Execute: learn/labs/lab_06_agentic_plan_execute.ipynb
+      - Failure Gallery: learn/labs/failure-gallery/README.md
+      - Existing Codebase Guide: learn/prompt-engineering-existing-codebase.md
+      - Architecture Decision Records:
+          - learn/decisions/README.md
+          - Few-Shot over Fine-Tuning: learn/decisions/001-few-shot-over-fine-tuning.md
+          - Split Planner-Executor: learn/decisions/002-split-planner-executor.md
+          - Add Safety Gate: learn/decisions/003-add-safety-gate.md
+          - Structured Output Schema: learn/decisions/004-structured-output-schema.md
+      - Research Track: learn/research/README.md
 
   - Prompt Templates:
-    - prompts/README.md
-    - Python:
-      - prompts/python/prompts/README.md
-      - Create Feature: prompts/python/prompts/create-feature.prompt.md
-      - Debug Issue: prompts/python/prompts/debug-issue.prompt.md
-      - Generate Docs: prompts/python/prompts/generate-docs.prompt.md
-      - Refactor Code: prompts/python/prompts/refactor-code.prompt.md
-      - Review Code: prompts/python/prompts/review-code.prompt.md
-      - Write Tests: prompts/python/prompts/write-tests.prompt.md
-      - Update/Generate README: prompts/python/prompts/update-generate-readme.prompt.md
-    - React + TypeScript:
-      - prompts/react-typescript/prompts/README.md
-      - Auditor — Best Practices: prompts/react-typescript/prompts/auditor-best-practices.prompt.md
-      - Auditor — Codebase Maturity: prompts/react-typescript/prompts/auditor-codebase-maturity.prompt.md
-      - Auditor — Cybersecurity: prompts/react-typescript/prompts/auditor-cybersecurity-features.prompt.md
-      - Auto Code Implementation: prompts/react-typescript/prompts/auto-code-implementation.prompt.md
-      - Create Chatbot (Ollama): prompts/react-typescript/prompts/create-chatbot-ollama.prompt.md
-      - Create SaaS App V2: prompts/react-typescript/prompts/create-saas-app-V2.prompt.md
-      - Safety Gate LLM: prompts/react-typescript/prompts/safety-gate-llm.prompt.md
-      - Update/Generate README: prompts/react-typescript/prompts/update-generate-readme.prompt.md
-    - React + FastAPI:
-      - prompts/react-fastapi/prompts/README.md
-      - Create Full-Stack App: prompts/react-fastapi/prompts/create-app-react-fastapi.prompt.md
-      - Create Test Suite: prompts/react-fastapi/prompts/create-test-suite.prompt.md
-      - Update/Generate README: prompts/react-fastapi/prompts/update-generate-readme.prompt.md
-    - Node.js + TypeScript:
-      - prompts/nodejs-typescript/prompts/README.md
-      - Create API Endpoint: prompts/nodejs-typescript/prompts/create-api-endpoint.prompt.md
-      - Review Code: prompts/nodejs-typescript/prompts/review-code.prompt.md
-      - Write Tests: prompts/nodejs-typescript/prompts/write-tests.prompt.md
-      - Generate OpenAPI Spec: prompts/nodejs-typescript/prompts/generate-openapi-spec.prompt.md
-    - Shared Resources:
-      - Evaluation Template: prompts/shared/evaluation-template.md
-      - Codacy Instructions: prompts/shared/codacy.instructions.md
+      - prompts/README.md
+      - Python:
+          - prompts/python/prompts/README.md
+          - Create Feature: prompts/python/prompts/create-feature.prompt.md
+          - Debug Issue: prompts/python/prompts/debug-issue.prompt.md
+          - Generate Docs: prompts/python/prompts/generate-docs.prompt.md
+          - Refactor Code: prompts/python/prompts/refactor-code.prompt.md
+          - Review Code: prompts/python/prompts/review-code.prompt.md
+          - Write Tests: prompts/python/prompts/write-tests.prompt.md
+          - Update/Generate README: prompts/python/prompts/update-generate-readme.prompt.md
+      - React + TypeScript:
+          - prompts/react-typescript/prompts/README.md
+          - Auditor — Best Practices: prompts/react-typescript/prompts/auditor-best-practices.prompt.md
+          - Auditor — Codebase Maturity: prompts/react-typescript/prompts/auditor-codebase-maturity.prompt.md
+          - Auditor — Cybersecurity: prompts/react-typescript/prompts/auditor-cybersecurity-features.prompt.md
+          - Auto Code Implementation: prompts/react-typescript/prompts/auto-code-implementation.prompt.md
+          - Create Chatbot (Ollama): prompts/react-typescript/prompts/create-chatbot-ollama.prompt.md
+          - Create SaaS App V2: prompts/react-typescript/prompts/create-saas-app-V2.prompt.md
+          - Safety Gate LLM: prompts/react-typescript/prompts/safety-gate-llm.prompt.md
+          - Update/Generate README: prompts/react-typescript/prompts/update-generate-readme.prompt.md
+      - React + FastAPI:
+          - prompts/react-fastapi/prompts/README.md
+          - Create Full-Stack App: prompts/react-fastapi/prompts/create-app-react-fastapi.prompt.md
+          - Create Test Suite: prompts/react-fastapi/prompts/create-test-suite.prompt.md
+          - Update/Generate README: prompts/react-fastapi/prompts/update-generate-readme.prompt.md
+      - Node.js + TypeScript:
+          - prompts/nodejs-typescript/prompts/README.md
+          - Create API Endpoint: prompts/nodejs-typescript/prompts/create-api-endpoint.prompt.md
+          - Review Code: prompts/nodejs-typescript/prompts/review-code.prompt.md
+          - Write Tests: prompts/nodejs-typescript/prompts/write-tests.prompt.md
+          - Generate OpenAPI Spec: prompts/nodejs-typescript/prompts/generate-openapi-spec.prompt.md
+      - Shared Resources:
+          - Evaluation Template: prompts/shared/evaluation-template.md
+          - Codacy Instructions: prompts/shared/codacy.instructions.md
 
   - References: references.md
   - Contributing: CONTRIBUTING.md

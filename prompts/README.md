@@ -1,6 +1,6 @@
 # ⚡ Prompt Templates
 
-Production-ready prompt files for VS Code & GitHub Copilot. Pick your stack, copy the files into your project's `.github/` directory, and start using them immediately.
+Production-ready prompt templates organized by technology stack. Optimized for VS Code & GitHub Copilot (copy files into `.github/` and start immediately), but the prompt content is model-agnostic — use it with ChatGPT, Claude, Gemini, or any LLM.
 
 ---
 
