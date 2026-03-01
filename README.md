@@ -202,16 +202,18 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 If you use this framework to structure your research, paper framing, or methodology curriculum, please cite it using the following format and check [references.md](references.md) for the bibliography. Machine-readable citation and archival metadata are also provided in [CITATION.cff](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/CITATION.cff) and [.zenodo.json](https://github.com/kunalsuri/prompt-engineering-playbook/blob/main/.zenodo.json).
 
 **APA Format:**
-> Suri, K. (2026). *Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development*. GitHub. https://github.com/kunalsuri/prompt-engineering-playbook
+> Suri, K. (2026). *Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development (v0.1.0-beta)*. Zenodo. https://doi.org/10.5281/zenodo.18827631
 
 **BibTeX:**
 ```bibtex
-@misc{suri2026promptengineering,
+@software{suri2026promptengineering,
   author       = {Suri, Kunal},
   title        = {Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development},
   year         = {2026},
-  publisher    = {GitHub},
-  howpublished = {\url{https://github.com/kunalsuri/prompt-engineering-playbook}},
+  version      = {v0.1.0-beta},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.18827631},
+  url          = {https://doi.org/10.5281/zenodo.18827631},
 }
 
 ```

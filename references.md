@@ -119,13 +119,19 @@ Documents in this repository that previously used unresolvable source indices (e
 If you use these templates or curriculum materials in academic work, please cite:
 
 ```bibtex
-@misc{suri2026promptengineering,
+@software{suri2026promptengineering,
   author       = {Suri, Kunal},
   title        = {Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development},
   year         = {2026},
-  publisher    = {GitHub},
-  howpublished = {\url{https://github.com/kunalsuri/prompt-engineering-playbook}},
+  version      = {v0.1.0-beta},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.18827631},
+  url          = {https://doi.org/10.5281/zenodo.18827631},
 }
 ```
+
+APA:
+
+Suri, K. (2026). *Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development (v0.1.0-beta)*. Zenodo. https://doi.org/10.5281/zenodo.18827631
 
 > **Note on performance figures.** Where comparison documents cite approximate performance numbers (e.g., "~85% accuracy on GSM8K"), these are illustrative figures intended for pedagogical purposes. Exact numbers vary by model, prompt variant, and evaluation protocol. Consult the primary sources listed above for precise empirical benchmarks.
