@@ -2,7 +2,8 @@ site_name: Prompt Engineering Playbook
 site_description: >-
   A hands-on curriculum to learn prompt engineering from scratch — plus
   production-ready prompt templates for AI-assisted development. Works with
-  any LLM: ChatGPT, Claude, Gemini, Copilot, Mistral, and more.
+  any LLM: Mistral, Claude, Gemini, Copilot, ChatGPT and more including
+  your Local GPT running via Ollama, vLLM, Llama.cpp etc.
 site_url: https://kunalsuri.github.io/prompt-engineering-playbook/
 repo_url: https://github.com/kunalsuri/prompt-engineering-playbook
 repo_name: kunalsuri/prompt-engineering-playbook

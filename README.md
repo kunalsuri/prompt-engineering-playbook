@@ -1,9 +1,15 @@
 # Prompt Engineering Playbook
 
-> A hands-on curriculum to learn prompt engineering from scratch — plus production-ready prompt templates for AI-assisted development. Works with any LLM: ChatGPT, Claude, Gemini, Copilot, Mistral, and more.
+> A hands-on curriculum to learn prompt engineering from scratch — plus production-ready prompt templates for AI-assisted development. Works with any LLM: Mistral, Claude, Gemini, Copilot, ChatGPT and more including your Local GPT running via Ollama, vLLM, Llama.cpp etc.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://kunalsuri.github.io/prompt-engineering-playbook/)
+[![Modules](https://img.shields.io/badge/modules-7-purple.svg)](learn/)
+[![Prompt Stacks](https://img.shields.io/badge/stacks-4-orange.svg)](prompts/)
+[![Exercises](https://img.shields.io/badge/exercises-20-teal.svg)](learn/solutions/exercise-solutions.md)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
+[![GitHub stars](https://img.shields.io/github/stars/kunalsuri/prompt-engineering-playbook?style=social)](https://github.com/kunalsuri/prompt-engineering-playbook)
 
 <br> 
 
@@ -170,9 +176,9 @@ If you use this framework to structure your research, paper framing, or methodol
 
 ## 💡 Declaration of AI Usage
 
-* **Coding:** GitHub Copilot / Microsoft GitHub Pro and related LLM-assisted features within Visual Studio Code were used to support the coding of this project, primarily for code generation, completion, and debugging. All AI-generated code was independently reviewed, tested, and refined by the author(s). The author(s) takes full responsibility for the correctness and integrity of all code in this work.
+* **Coding:** GitHub Copilot / Microsoft GitHub Pro, Google Antigravity, and open models running via Ollama were used within Visual Studio Code to support the coding of this project, primarily for code generation, completion, and debugging. All AI-generated code was independently reviewed, tested, and refined by the author(s). The author(s) takes full responsibility for the correctness and integrity of all code in this work.
 
-* **Writing & Ideation:**  Large language model (LLM) tools — specifically (Anthropic Claude and Google Gemini Pro) — were used to assist with brainstorming, structural organization, and language refinement during the writing process. All underlying arguments, intellectual contributions, and conclusions originate with the author(s). All AI-assisted material was critically reviewed and substantially revised by the author(s), who takes full responsibility for the accuracy, originality, and integrity of the published content.
+* **Writing & Ideation:**  Large language model (LLM) tools — specifically Anthropic Claude and Google Gemini Pro — were used to assist with brainstorming, structural organization, and language refinement during the writing process. All underlying arguments, intellectual contributions, and conclusions originate with the author(s). All AI-assisted material was critically reviewed and substantially revised by the author(s), who takes full responsibility for the accuracy, originality, and integrity of the published content.
 
 <br/>
 
