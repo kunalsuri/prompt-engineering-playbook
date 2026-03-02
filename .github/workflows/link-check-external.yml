@@ -23,6 +23,6 @@ jobs:
             --no-progress
             --retry-wait-time 2
             --max-retries 3
-            --accept 200,206,429
+            --accept 200,206,403,429
             --exclude-path .github/**
             './**/*.md'
