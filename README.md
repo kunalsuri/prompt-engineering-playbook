@@ -5,9 +5,15 @@
 Seven-module curriculum + stack-specific `.prompt.md` templates that can be used with any coding agent.
 
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18827631.svg)](https://doi.org/10.5281/zenodo.18827631)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://kunalsuri.github.io/prompt-engineering-playbook/)
 [![Build](https://img.shields.io/github/actions/workflow/status/kunalsuri/prompt-engineering-playbook/quality-nonmarkdown.yml?branch=main&label=checks)](https://github.com/kunalsuri/prompt-engineering-playbook/actions/workflows/quality-nonmarkdown.yml)
+
+---
+<br>
+
+
 
 <p align="center">
   <a href="https://kunalsuri.github.io/prompt-engineering-playbook/">
@@ -15,9 +21,13 @@ Seven-module curriculum + stack-specific `.prompt.md` templates that can be used
   </a>
 </p>
 
+<br>
+
 ---
 
 > **Tested environment:** Verified in VS Code 1.96+ with GitHub Copilot Pro/Enterprise. The prompt files are plain Markdown and can be adapted for other coding agents.
+
+<br>
 
 > **Safety requirement (sandbox first):** Run repository scripts only inside a local Python virtual environment (`.venv`) to avoid polluting system packages and to reduce risk of accidental environment breakage.
 
