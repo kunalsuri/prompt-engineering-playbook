@@ -230,9 +230,14 @@ If you use this framework to structure your research, paper framing, or methodol
 ---
 
 <details>
-<summary><strong>AI Usage Declaration</strong></summary>
+<summary><strong>AI Transparency and Responsible Use</strong></summary>
 
-* **Coding:** GitHub Copilot (Pro/Enterprise), Google Antigravity, and open-weight models run via Ollama were used in Visual Studio Code to support development, primarily for code generation, completion, and debugging. All AI-assisted code was independently reviewed, tested, and refined by the authors. The authors take full responsibility for the correctness and integrity of the codebase.
+* **Responsible Use of AI:** 
+  - **Data Privacy:** Prioritize local open-weight models for processing sensitive or educational data to ensure data sovereignty.
+  - **Human Validation:** All AI-generated outputs are validated before integration into teaching, research, or decision-making workflows.
+  - **Compliance:** This project aligns with <a href="https://research-and-innovation.ec.europa.eu/news/all-research-and-innovation-news/guidelines-responsible-use-generative-ai-research-developed-european-research-area-forum-2024-03-20_en" target="_blank" rel="noopener noreferrer">EU Guidance on Responsible Use of Generative AI in Research</a>.
+
+* **Coding:** This project was developed with assistance from the following AI tools: GitHub Copilot (Pro/Enterprise), Google's Antigravity IDE, Local Open-Weight Models (via Ollama in VS Code, e.g., Mistral). These tools were used primarily for code generation, completion, and debugging. All AI-assisted code was independently reviewed, tested, and refined by the authors. The authors take full responsibility for the correctness, security, and integrity of the codebase.
 
 * **Writing & Ideation:**  Large language model (LLM) tools — specifically Anthropic Claude and Google Gemini models — were used to support brainstorming, structural organization, and language refinement during the writing process. All underlying arguments, intellectual contributions, and conclusions originate with the authors. All AI-assisted material was critically reviewed and substantially revised by the authors, who take full responsibility for the accuracy, originality, and integrity of the published content.
 
