@@ -3,5 +3,5 @@
 # 9.6.0+ emits a warning about MkDocs 2.0 incompatibility that has no fix yet.
 # Revisit when mkdocs-material publishes a MkDocs-2.0-compatible major release.
 mkdocs==1.6.1
-mkdocs-material==9.7.3
+mkdocs-material==9.7.5
 mkdocs-minify-plugin>=0.8.0,<1.0.0
