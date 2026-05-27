@@ -48,6 +48,25 @@ jobs:
       - name: Run repository checks
         run: make check
 
+  lab-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+
+      - name: Verify .py/.ipynb lab pairs are in sync
+        # Uses only stdlib (ast, json, re) -- no pip install required.
+        # Checks:
+        #   1. Notebook `from lab_XX import NAMES` -> each NAME exists in the .py
+        #   2. Labs 1-4: UPPERCASE string constants in .py match notebook code cells
+        #      (comparison uses ast evaluation, not raw text, to handle escape sequences)
+        run: python scripts/check-lab-sync.py
+
   notebook-smoke:
     runs-on: ubuntu-latest
     steps:
