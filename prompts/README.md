@@ -2,6 +2,17 @@
 
 Reusable prompt templates organized by technology stack. The prompt content can be used with any coding agent; the repository workflow is tested and optimized for VS Code & GitHub Copilot (copy files into `.github/` and start immediately). You can also use the same prompt content with ChatGPT, Claude, Gemini, or any LLM.
 
+**What's in this folder:**
+
+| Sub-folder | Stack | Prompts |
+|---|---|---|
+| `python/` | Python 3.12+ applications | 7 prompts + `copilot-instructions.md` |
+| `react-typescript/` | React + TypeScript frontend | 8 prompts + `copilot-instructions.md` |
+| `react-fastapi/` | React + FastAPI full-stack | 3 prompts + `copilot-instructions.md` |
+| `nodejs-typescript/` | Node.js + TypeScript backend | 4 prompts + `copilot-instructions.md` |
+| `shared/` | Stack-agnostic resources | Evaluation template, README base, JSON schema |
+| `user-prompts/` | Non-coding everyday tasks | Generic prompts for writing, analysis, research |
+
 ---
 
 ## Choose Your Stack

@@ -2,6 +2,20 @@
 
 A structured, seven-module curriculum for mastering prompt engineering — from foundational concepts through advanced techniques and autonomous agent architectures. No prior prompt engineering experience is assumed.
 
+**What's in this folder:**
+
+| Sub-folder / File | Contents |
+|---|---|
+| `00-06-*.md` | Seven curriculum modules (read in order) |
+| `comparisons/` | Research-backed deep dives on specific techniques |
+| `prompt-examples/` | Worked examples for each pattern from the modules |
+| `labs/` | Six runnable Python experiments + failure gallery |
+| `decisions/` | Architecture Decision Records explaining key design choices |
+| `solutions/` | Reference solutions for all module exercises |
+| `cheatsheet.md` · `cookbook.md` · `glossary.md` | Quick-reference guides |
+| `prompt-debugging.md` · `meta-prompting.md` | Practitioner guides |
+| `beginners-guide.md` | Code-free reading path for non-programmers |
+
 ---
 
 ## Choose Your Path

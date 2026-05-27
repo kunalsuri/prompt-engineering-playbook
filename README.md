@@ -1,48 +1,17 @@
-# Prompt Engineering Playbook: Curriculum and Reusable Prompt Templates for LLM-powered Development
+# Prompt Engineering Playbook
 
-> Learn prompt engineering end-to-end and apply it with prompt templates for AI-assisted development.
-
-Seven-module curriculum + stack-specific `.prompt.md` templates that can be used with any coding agent.
-
+> A seven-module curriculum + stack-specific prompt templates for AI-assisted development — works with any LLM.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18827631.svg)](https://doi.org/10.5281/zenodo.18827631)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-blue.svg)](https://kunalsuri.github.io/prompt-engineering-playbook/)
 [![Build](https://img.shields.io/github/actions/workflow/status/kunalsuri/prompt-engineering-playbook/quality-nonmarkdown.yml?branch=main&label=checks)](https://github.com/kunalsuri/prompt-engineering-playbook/actions/workflows/quality-nonmarkdown.yml)
 
----
-<br>
+**[🌐 View the Documentation Site →](https://kunalsuri.github.io/prompt-engineering-playbook/)**
 
-
-
-<p align="center">
-  <a href="https://kunalsuri.github.io/prompt-engineering-playbook/">
-    <b>🌐 View the Documentation Site →</b>
-  </a>
-</p>
-
-<br>
+> **Tested environment:** Verified in VS Code 1.96+ with GitHub Copilot Pro/Enterprise. Prompt files are plain Markdown and work with any coding agent.
 
 ---
-
-> **Tested environment:** Verified in VS Code 1.96+ with GitHub Copilot Pro/Enterprise. The prompt files are plain Markdown and can be adapted for other coding agents.
-
-<br>
-
-> **Safety requirement (sandbox first):** Run repository scripts only inside a local Python virtual environment (`.venv`) to avoid polluting system packages and to reduce risk of accidental environment breakage.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-docs.txt -r requirements-dev.txt
-```
-
-For script execution, prefer explicit `.venv` binaries:
-
-```bash
-.venv/bin/python scripts/validate-prompt-schema.py
-make check
-```
 
 ## Who This Is For
 
@@ -53,8 +22,8 @@ make check
 ## Quick Navigation
 
 - [Quick Start (60 seconds)](#quick-start-60-seconds)
-- [Beta Release Notes](BETA-RELEASE-NOTES.md)
 - [Pick Your Path](#pick-your-path)
+- [What's in This Repo](#whats-in-this-repo)
 - [Available Stacks](#available-stacks)
 - [How Prompt Files Work (VS Code Copilot)](#how-prompt-files-work-vs-code-copilot)
 - [Contributing](#contributing)
@@ -68,6 +37,12 @@ If you are an AI assistant or automation reading this repository:
 - Follow [CONTRIBUTING.md](CONTRIBUTING.md) for formatting, citation, and prompt-file requirements.
 
 ## Quick Start (60 seconds)
+
+> **Safety note:** Run repository scripts inside a Python virtual environment to avoid polluting system packages.
+> ```bash
+> python3 -m venv .venv && source .venv/bin/activate
+> pip install -r requirements-docs.txt -r requirements-dev.txt
+> ```
 
 For a local/manual setup path (no `curl` pipe) plus verification steps, see [GETTING-STARTED.md](GETTING-STARTED.md#manual-install-no-curl-bash).
 
@@ -131,37 +106,63 @@ graph TD
     F -.-> I[Labs & Comparisons]
 ```
 
-## What's Inside
+## What's in This Repo
 
 ```
-├── learn/                     🎓 Seven-module curriculum + deep-dive comparisons
-│   ├── 00-orientation.md               Story-first on-ramp (no technical background needed)
-│   ├── 01-introduction.md
-│   ├── 02-core-principles.md
-│   ├── 03-patterns.md
-│   ├── 04-best-practices.md
-│   ├── 05-advanced-patterns.md
-│   ├── 06-agentic-patterns.md          Plan-and-execute, reflection loops, multi-agent systems
-│   ├── comparisons/                    Chain-of-Thought, ReAct, Few-Shot, cross-model portability
-│   └── prompt-examples/                Worked examples for each pattern
+prompt-engineering-playbook/
 │
-├── prompts/                   ⚡ Reusable prompt templates
-│   ├── shared/                Instructions that apply to ALL stacks
-│   ├── python/                Python-specific prompts & instructions
-│   ├── react-typescript/      React + TypeScript prompts & instructions
-│   ├── react-fastapi/         Full-stack React + FastAPI prompts
-│   └── nodejs-typescript/     Node.js + TypeScript prompts & instructions
+├── learn/                     🎓 Seven-module curriculum
+│   ├── 00-orientation.md      ← Story-first on-ramp (no jargon, no code)
+│   ├── 01-06-*.md             ← Core modules (Introduction → Agentic Patterns)
+│   ├── comparisons/           ← Research-backed technique comparisons (CoT, ReAct, Few-Shot…)
+│   ├── prompt-examples/       ← Worked examples for each pattern
+│   ├── labs/                  ← Six runnable Python experiments + failure gallery
+│   ├── decisions/             ← Architecture Decision Records (why we chose X over Y)
+│   ├── solutions/             ← Reference solutions for all module exercises
+│   └── *.md                   ← Guides: cheatsheet, cookbook, glossary, debugging, meta-prompting…
 │
-├── scripts/                   🔧 Setup helper scripts
-│   ├── python/setup.sh
-│   ├── react-typescript/setup.sh
-│   ├── react-fastapi/setup.sh
-│   └── nodejs-typescript/setup.sh
+├── prompts/                   ⚡ Reusable prompt templates by stack
+│   ├── python/                ← 7 prompts + copilot-instructions.md
+│   ├── react-typescript/      ← 8 prompts + copilot-instructions.md
+│   ├── react-fastapi/         ← 3 prompts + copilot-instructions.md
+│   ├── nodejs-typescript/     ← 4 prompts + copilot-instructions.md
+│   ├── shared/                ← Evaluation template, README base, JSON schema
+│   └── user-prompts/          ← Generic everyday prompts (non-coding)
 │
-├── GETTING-STARTED.md         How to install and use these templates
-├── CONTRIBUTING.md            Guidelines for contributors
-├── CHANGELOG.md               Version history and migration guide
-└── references.md              Bibliography (APA, with DOIs)
+├── scripts/                   🔧 Repo automation & per-stack setup helpers
+│   ├── setup.sh               ← Project setup script
+│   ├── check-citations.py     ← Validates all [CitationKey] references
+│   ├── check-lab-sync.py      ← Ensures lab .py and .ipynb files stay in sync
+│   ├── lint-*.sh              ← Linters for prompt frontmatter and copilot instructions
+│   ├── validate-prompt-schema.py ← JSON Schema validation for .prompt.md files
+│   ├── run-notebook-smoke.py  ← Smoke-tests all Jupyter notebooks
+│   └── {python,react-typescript,react-fastapi,nodejs-typescript}/setup.sh
+│
+├── .github/                   🤖 CI workflows, issue templates, Copilot instructions
+├── assets/                    🎨 CSS and favicon for the documentation site
+├── docs_src/                  📎 Symlinks used by MkDocs to build the docs site
+│
+├── README.md                  ← You are here
+├── GETTING-STARTED.md         ← Installation and first-use walkthrough
+├── CONTRIBUTING.md            ← Contributor guidelines and commit conventions
+├── CHANGELOG.md               ← Version history
+├── ROADMAP.md                 ← Planned features and future work
+├── ARCHITECTURE.md            ← Deep-dive architecture documentation
+├── DEVELOPMENT_WORKFLOW.md    ← Step-by-step developer workflows
+├── CONTRIBUTING_AI.md         ← AI-agent-specific contribution guide
+├── AGENT.md                   ← General AI agent context file
+├── CLAUDE.md                  ← Claude Code context file
+├── REPOSITORY_MAP.md          ← Full navigable file inventory
+├── TECHNICAL-REPORT.md        ← Technical report on the playbook
+├── BETA-RELEASE-NOTES.md      ← Beta-specific release notes
+├── SECURITY.md                ← Security policy
+├── CODE_OF_CONDUCT.md         ← Community code of conduct
+├── references.md              ← Bibliography (APA, with DOIs)
+├── llms.txt                   ← Machine-readable repo summary for LLMs
+├── mkdocs.yml                 ← Documentation site configuration
+├── requirements-docs.txt      ← Docs build dependencies
+├── requirements-dev.txt       ← Dev/CI dependencies
+└── Makefile                   ← Common dev tasks (make sync, make build, make check…)
 ```
 
 ---
