@@ -88,30 +88,9 @@ All factual claims and performance figures in curriculum files must use citation
 Scripts that import third-party packages (`validate-prompt-schema.py`) require a virtual environment. The script itself will fail fast with a clear error if run outside one.
 
 ---
-
 ## Key Files & Locations
 
-| File/Directory | Purpose |
-|---|---|
-| `learn/00-orientation.md` – `learn/06-agentic-patterns.md` | Seven curriculum modules — edit these for content |
-| `prompts/<stack>/copilot-instructions.md` | Base Copilot system prompt for each stack |
-| `prompts/<stack>/prompts/*.prompt.md` | Task-specific prompt templates |
-| `prompts/shared/prompt-registry.schema.json` | JSON schema for frontmatter validation |
-| `prompts/shared/evaluation-template.md` | Evaluation rubric — the testing reference |
-| `learn/decisions/` | Prompt design ADRs (Architecture Decision Records) |
-| `learn/research/README.md` | 15-paper curated research reading track (citations, discussion questions) |
-| `learn/labs/lab_utils.py` | Shared lab utilities + `_MockClient` for CI |
-| `learn/labs/requirements.txt` | Lab-only deps (`openai`, `python-dotenv`) |
-| `requirements-docs.txt` | MkDocs build deps |
-| `requirements-dev.txt` | `jsonschema`, `pyyaml` for validation |
-| `scripts/lint-prompt-frontmatter.sh` | Shell-based frontmatter linter |
-| `scripts/validate-prompt-schema.py` | Python-based JSON schema validator |
-| `scripts/run-notebook-smoke.py` | Notebook smoke-test runner |
-| `scripts/setup.sh` | Unified stack installer for end users |
-| `Makefile` | All developer task targets |
-| `.github/copilot-instructions.md` | Repo-level Copilot instructions |
-| `.github/workflows/` | 5 CI workflows (see ARCHITECTURE.md) |
-| `mkdocs.yml` | MkDocs configuration |
+Refer to [.ai/REPOSITORY_MAP.md](.ai/REPOSITORY_MAP.md) for the complete, navigable directory map and file inventory of this repository.
 
 ---
 

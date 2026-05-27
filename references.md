@@ -38,6 +38,12 @@ Documents in this repository that previously used unresolvable source indices (e
 
 **[Sumers2024]** Sumers, T. R., Yao, S., Narasimhan, K., & Griffiths, T. L. (2024). Cognitive architectures for language agents. *Transactions on Machine Learning Research (TMLR)*. https://doi.org/10.48550/arXiv.2309.02427
 
+**[AnthropicClaudeCode2026]** Anthropic. (2026). *claude-code* (GitHub repository). https://github.com/anthropics/claude-code
+
+**[AnthropicCodeReview2026]** Anthropic. (2026). *Claude Code code-review command* (plugin documentation). https://github.com/anthropics/claude-code/blob/main/plugins/code-review/commands/code-review.md
+
+**[AnthropicSkills2026]** Anthropic. (2026). *Claude Code skill development guide* (`SKILL.md`). https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/skills/skill-development/SKILL.md
+
 ---
 
 ## Retrieval-Augmented Generation

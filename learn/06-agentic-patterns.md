@@ -543,6 +543,75 @@ A significant development in the LLM landscape is the emergence of **reasoning m
 
 ---
 
+## 6.10 Case Study: Claude Code and Agentic Scaffolding
+
+To see agentic patterns in action, we can examine **Claude Code**, an agentic command-line interface (CLI) tool designed by Anthropic for interactive software development [AnthropicClaudeCode2026]. Claude Code serves as a production-grade showcase of how the agentic patterns discussed in this module are implemented to manage complex, multi-turn, real-world tasks.
+
+### 6.10.1 `CLAUDE.md` — Repository-Level System Instructions
+
+Just as a system prompt configures the baseline persona and boundaries of an LLM, the `CLAUDE.md` file serves as a **repository-level cognitive anchor** for agentic tools. In Claude Code's architecture, workflows and review tooling explicitly gather repository `CLAUDE.md` guidelines (including root-level rules) as part of execution [AnthropicCodeReview2026].
+
+*   **The Role of a Root Context File:** A well-designed `CLAUDE.md` acts as an instruction manual that bridges the gap between general code understanding and the specific practices of a given codebase. It typically outlines:
+    *   **The "What"**: Key files, libraries, and architectural layout (which we optimized using a dedicated `.ai/REPOSITORY_MAP.md` routing link to save initial context tokens).
+    *   **The "How"**: Coding style guidelines, imports, structure conventions, and build commands (e.g., `make check`, `make build`).
+    *   **The Guardrails**: Critical invariants, danger zones (such as avoiding editing symlink directories like `docs_src/`), and commit message rules.
+*   **The Token-Savings Benefit:** Rather than asking the developer to paste project guidelines in every session or forcing the agent to recursively scan the entire repository to guess conventions, the `CLAUDE.md` provides high-density, authoritative rules in a single initial read. This saves substantial time and token overhead.
+
+### 6.10.2 Skills and `SKILL.md` — Modular Agent Capabilities
+
+As developer requirements become more specialized, a monolithic system prompt or `CLAUDE.md` file quickly becomes bloated, triggering token fatigue and diluting the agent's focus.
+
+To solve this, many agentic systems use a **modular capability pattern** called **Skills**. In Claude Code's plugin ecosystem, this pattern is implemented with a `skills/` directory and `SKILL.md` metadata files that support discovery and invocation [AnthropicSkills2026]:
+
+*   **Structure:** A skill is represented as a self-contained folder under a standardized path (e.g., `skills/` or `.claude/skills/`, depending on the harness). Each skill directory contains:
+    1.  A **`SKILL.md`** file that defines the skill's metadata (using YAML frontmatter like `name` and `description`) and provides step-by-step instructions.
+    2.  Supporting scripts, prompt templates, or configuration files that execute the task.
+*   **Dynamic Discovery & Invocation:** When an agent encounters a specific task, it scans the skill directory. If a skill's description matches the task requirements, the agent dynamically imports (`invokes`) the `SKILL.md` rules into its active context [AnthropicSkills2026].
+*   **Example Applications:**
+    *   *Science/Database Skills:* Connecting an agent to UniProt, PubChem, or clinical trial databases to fetch structural metrics or variant data.
+    *   *Project Automation Skills:* Executing complex release cycles, verifying markdown sync boundaries, or orchestrating local testing frameworks.
+
+### 6.10.3 Harness Engineering — A Practical Heuristic
+
+In advanced agentic systems, prompt engineering alone is often insufficient. Achieving high-reliability automation requires **Harness Engineering**—designing the software infrastructure (the "harness") that wraps the AI model [Yao2023][Shinn2023].
+
+The harness decouples the **brain** (the LLM) from the **hands** (the tools, execution sandboxes, and file-editing systems). A robust agent harness provides:
+
+1.  **State and Context Management:** Maintaining history across multiple execution loops without exceeding context limits.
+2.  **Autonomous Tool Orchestration:** Giving the model capabilities to read/write files, execute terminal shell commands, query APIs, and search the web.
+3.  **Strict Security Guardrails:** Running the terminal in a sandboxed, low-privilege container or requiring explicit developer confirmations before executing write/delete commands [OWASP2025].
+4.  **Verification Loops:** A common implementation pattern is to run test suites, linters, or type-checkers (e.g., `make lint`) immediately after model-generated code changes and feed the output back to the agent so it can self-correct [Shinn2023].
+
+### 6.10.4 Layman's Analogy: The Driver, the Manual, and the Car
+
+To understand how these components work together in plain language, consider this analogy:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      THE AGENTIC SYSTEM                          │
+│                                                                  │
+│  1. THE BRAIN    — The LLM (e.g., Claude, Gemini)                │
+│                    Highly skilled, but begins as a passenger.    │
+│                                                                  │
+│  2. THE MANUAL   — The Prompt & CLAUDE.md                        │
+│                    The roadmap, rules, and destination.          │
+│                                                                  │
+│  3. THE CAR      — The Harness (Terminal, Filesystem, Sandbox)   │
+│                    The vehicle with steering, pedals, dashboard, │
+│                    engine, and safety airbags.                   │
+│                                                                  │
+│  Result: Together, they can navigate and drive to the goal.      │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+*   **The LLM (The Driver):** Think of the LLM as a highly capable driver. They have excellent knowledge of roads and driving mechanics, but they start out sitting in a blank room.
+*   **The Prompt / `CLAUDE.md` (The Manual):** This is the map, the specific destination, the local traffic laws, and the driver's instruction booklet. It tells the driver *where* to go and *how* to behave (e.g. "don't exceed 60 MPH").
+*   **The Harness (The Car):** The harness is the physical car itself. It equips the driver with a steering wheel, pedals, a dashboard display (sensors/perception), and an engine (execution power). The car also has safety guardrails: a seatbelt and airbags (sandboxing, permission checks) that prevent the driver from crashing the computer. Finally, the car has a GPS navigation screen (the compiler and test runner) that automatically blinks when they take a wrong turn, giving them immediate feedback to self-correct.
+
+Without the **Harness (the car)**, the brilliant **LLM (the driver)** is just sitting in a room thinking about driving, unable to turn a wheel. In many practical autonomous-coding workflows, harness engineering can matter more for reliability than prompt tuning alone.
+
+---
+
 > **Validated against:** GPT-4o (2025-11), Claude 3.5 Sonnet, Gemini 1.5 Pro — February 2026.
 > Behavioral claims may drift as models are updated. Performance figures marked *(approx.)* are illustrative.
 
@@ -557,6 +626,9 @@ A significant development in the LLM landscape is the emergence of **reasoning m
 - [Sumers2024] Sumers, T. R., Yao, S., Narasimhan, K., & Griffiths, T. L. (2024). Cognitive architectures for language agents. *Transactions on Machine Learning Research (TMLR)*. https://doi.org/10.48550/arXiv.2309.02427
 - [Snell2024] Snell, C., Lee, J., Xu, K., & Kumar, A. (2024). Scaling LLM test-time compute optimally can be more effective than scaling model parameters. *arXiv preprint*. https://doi.org/10.48550/arXiv.2408.03314
 - [Lightman2023] Lightman, H., Kosaraju, V., Burda, Y., Edwards, H., Baker, B., Lee, T., Leike, J., Schulman, J., Sutskever, I., & Cobbe, K. (2023). Let's verify step by step. *ICLR*. https://doi.org/10.48550/arXiv.2305.20050
+- [AnthropicClaudeCode2026] Anthropic. (2026). *claude-code* (GitHub repository). https://github.com/anthropics/claude-code
+- [AnthropicCodeReview2026] Anthropic. (2026). *Claude Code code-review command* (plugin documentation). https://github.com/anthropics/claude-code/blob/main/plugins/code-review/commands/code-review.md
+- [AnthropicSkills2026] Anthropic. (2026). *Claude Code skill development guide* (`SKILL.md`). https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/skills/skill-development/SKILL.md
 
 ---
 

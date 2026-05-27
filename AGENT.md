@@ -17,58 +17,12 @@ It contains:
 
 ---
 
-## Repository Map (Quick Reference)
+## AI Agent Metadata & Maps
 
-```
-prompt-engineering-playbook/
-├── learn/                     Seven-module curriculum
-│   ├── 00-orientation.md      Story-first on-ramp
-│   ├── 01-introduction.md     What prompt engineering is
-│   ├── 02-core-principles.md  Specificity, decomposition, iteration, evaluation
-│   ├── 03-patterns.md         Six patterns (zero-shot, few-shot, CoT, ReAct, role, constrained)
-│   ├── 04-best-practices.md   Token management, versioning, team workflows
-│   ├── 05-advanced-patterns.md RAG, adversarial, multimodal, evaluation pipelines
-│   ├── 06-agentic-patterns.md Plan-and-execute, reflection, multi-agent
-│   ├── comparisons/           Deep-dive technique comparisons (cited)
-│   ├── decisions/             Prompt design ADRs (001–004)
-│   ├── labs/                  Jupyter notebooks + Python scripts + failure gallery
-│   ├── prompt-examples/       Worked examples per pattern
-│   ├── glossary.md
-│   ├── cookbook.md            20 copy-paste everyday recipes
-│   ├── cheatsheet.md
-│   └── README.md
-│
-├── prompts/                   Reusable prompt templates
-│   ├── shared/                Stack-agnostic (schema, evaluation template)
-│   ├── python/                copilot-instructions.md + 7 prompt files
-│   ├── react-typescript/      copilot-instructions.md + 8 prompt files
-│   ├── react-fastapi/         copilot-instructions.md + 3 prompt files
-│   └── nodejs-typescript/     copilot-instructions.md + 4 prompt files
-│
-├── scripts/                   Developer tooling
-│   ├── setup.sh               Unified stack installer (end-user facing)
-│   ├── lint-prompt-frontmatter.sh
-│   ├── validate-prompt-schema.py
-│   ├── run-notebook-smoke.py
-│   └── <stack>/setup.sh       Stack-specific installers
-│
-├── docs_src/                  MkDocs source — SYMLINKS ONLY, do not edit
-├── assets/                    Site CSS and favicon
-├── Makefile                   Developer task runner
-├── mkdocs.yml                 Documentation site config
-├── requirements-docs.txt      MkDocs build deps
-├── requirements-dev.txt       Validation script deps (jsonschema, pyyaml)
-├── .github/
-│   ├── copilot-instructions.md  Repo-level Copilot context
-│   ├── workflows/               5 CI workflows
-│   └── prompts/                 (See .github/prompts/README.md)
-├── CONTRIBUTING.md            Human contribution guide
-├── CONTRIBUTING_AI.md         AI-agent-specific contribution guide  ← THIS FILE's sibling
-├── CLAUDE.md                  Claude Code context (superset of this file for Claude)
-├── ARCHITECTURE.md            Deep architecture documentation
-├── REPOSITORY_MAP.md          Full navigable file inventory
-└── DEVELOPMENT_WORKFLOW.md    Step-by-step developer workflows
-```
+To prevent repository clutter for human developers and significantly reduce session token consumption, all heavy agent-specific inventories and guides are stored in the hidden `.ai/` folder. **Do not read these in full unless specifically requested by your task:**
+
+1. **Detailed Inventory Map:** See [.ai/REPOSITORY_MAP.md](.ai/REPOSITORY_MAP.md) for a complete list of files and their edit permissions.
+2. **AI Contributor Guidelines:** See [.ai/CONTRIBUTING_AI.md](.ai/CONTRIBUTING_AI.md) for safety policies, prompt design contracts, and validation instructions.
 
 ---
 
@@ -130,16 +84,6 @@ Scripts checking `VIRTUAL_ENV` will abort if run without one. Always use `.venv/
 - [ ] Notebooks: outputs stripped (pre-commit hook `nbstripout`)
 - [ ] No files added to `docs_src/`
 - [ ] Commit message follows Conventional Commits
-
----
-
-## Known Limitations and Technical Debt
-
-1. **Windows incompatibility** — `make sync` creates POSIX symlinks; Makefile is Linux/macOS only
-2. **No unit tests for lab Python code** — only notebook smoke tests with a mock client
-3. **Optional schema fields underused** — `tags`, `patterns`, `stack` optional in schema but not consistently populated in prompt files
-4. **Token budget advisory only** — the CI check warns but never blocks
-5. **`_MockClient` keyword matching** — brittle; matched on specific string fragments from lab prompts
 
 ---
 

@@ -33,6 +33,8 @@ If you are an AI reading this file, your job is likely to summarize, navigate, o
     "find_prompt_stacks": "prompts/README.md",
     "learn_curriculum": "learn/README.md",
     "contribute_changes": "CONTRIBUTING.md",
+    "repository_inventory_map": ".ai/REPOSITORY_MAP.md",
+    "ai_agent_contribution": ".ai/CONTRIBUTING_AI.md",
     "governance_and_policies": [
         "SECURITY.md",
         "CODE_OF_CONDUCT.md",

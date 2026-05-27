@@ -1,6 +1,6 @@
 # REPOSITORY_MAP.md — Prompt Engineering Playbook
 
-> Complete navigable inventory of the repository. Last audited: 2026-05-27.
+> Complete navigable inventory of the repository. Last audited: 2026-05-27. Relocated to `.ai/` to optimize initial agent loading token budget and keep the repository root clean.
 
 ---
 
@@ -11,15 +11,15 @@
 | `README.md` | Main entry point; quick nav, stack table, how-to | Yes (canonical) |
 | `GETTING-STARTED.md` | End-user installation and usage walkthrough | Yes (canonical) |
 | `CONTRIBUTING.md` | Human contributor guide | Yes (canonical) |
-| `CONTRIBUTING_AI.md` | AI-agent contributor guide | Yes |
+| `.ai/CONTRIBUTING_AI.md` | AI-agent contributor guide (relocated) | Yes |
 | `CHANGELOG.md` | Version history (Keep a Changelog format) | Yes (append only) |
 | `BETA-RELEASE-NOTES.md` | Beta-specific notes | Yes |
 | `ROADMAP.md` | Planned features and future work | Yes |
 | `TECHNICAL-REPORT.md` | Technical report on the playbook | Yes |
-| `CLAUDE.md` | Claude Code context | Yes |
-| `AGENT.md` | General AI agent context | Yes |
+| `CLAUDE.md` | Claude Code context (root router) | Yes |
+| `AGENT.md` | General AI agent context (root router) | Yes |
 | `ARCHITECTURE.md` | Deep architecture documentation | Yes |
-| `REPOSITORY_MAP.md` | This file | Yes |
+| `.ai/REPOSITORY_MAP.md` | This file | Yes |
 | `DEVELOPMENT_WORKFLOW.md` | Step-by-step developer workflows | Yes |
 | `LICENSE` | MIT License | No |
 | `CODEOWNERS` | Code ownership rules | Yes (rare) |

@@ -1,6 +1,7 @@
 # CONTRIBUTING_AI.md — AI-Agent Contribution Guide
 
-> This guide is specifically for AI agents (Claude Code, GitHub Copilot, GPT, Gemini, or similar automation). For human contributor guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+> This guide is specifically for AI agents (Claude Code, GitHub Copilot, GPT, Gemini, or similar automation). For human contributor guidelines, see [CONTRIBUTING.md](../CONTRIBUTING.md).
+> Relocated to `.ai/` to save workspace context tokens and keep the repository root clean.
 
 ---
 
