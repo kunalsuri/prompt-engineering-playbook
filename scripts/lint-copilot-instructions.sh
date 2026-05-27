@@ -41,8 +41,10 @@ check_file() {
     # ------------------------------------------------------------------
     # Check 1: H1 title present
     # ------------------------------------------------------------------
-    if ! grep -qE '^# ' "$file"; then
-        echo "  FAIL [$file] Missing H1 title (no line starting with '# ')"
+    local first_nonblank_line
+    first_nonblank_line="$(grep -m1 -E '[^[:space:]]' "$file" || true)"
+    if [[ ! "$first_nonblank_line" =~ ^#\  ]]; then
+        echo "  FAIL [$file] Missing H1 title (first non-blank line must start with '# ')"
         errors=$((errors + 1))
     fi
 
@@ -59,8 +61,8 @@ check_file() {
     # ------------------------------------------------------------------
     # Check 3: Negative-constraint keyword
     # ------------------------------------------------------------------
-    if ! grep -qiE '\b(never|avoid|do not|must not|prohibited)\b' "$file"; then
-        echo "  FAIL [$file] No negative constraint keyword found (never/avoid/do not/must not/prohibited)"
+    if ! grep -qiE '\b(never|avoid|do[ _]not|must not|prohibited)\b' "$file"; then
+        echo "  FAIL [$file] No negative constraint keyword found (never/avoid/do not/do_not/must not/prohibited)"
         errors=$((errors + 1))
     fi
 
