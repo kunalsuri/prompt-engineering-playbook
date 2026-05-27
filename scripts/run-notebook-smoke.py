@@ -43,14 +43,6 @@ def sanitize_notebook(notebook: nbformat.NotebookNode) -> None:
             continue
 
         source = str(cell.get("source", ""))
-        if "from lab_06_agentic_plan_execute import run_agent, TASKS" in source:
-            cell["source"] = 'print("Notebook smoke: skipping outdated TASKS demo cell in CI.")'
-            continue
-
-        if "run_agent(my_task)" in source or "run_single_prompt_baseline(my_task)" in source:
-            cell["source"] = 'print("Notebook smoke: skipping outdated run_agent invocation cell in CI.")'
-            continue
-
         looks_interactive_setup = (
             "Choose your LLM provider" in source
             or "getpass.getpass" in source
