@@ -4,7 +4,7 @@
   "title": "Prompt Registry Entry",
   "description": "Schema for prompt metadata in the Prompt Engineering Playbook. Validates the YAML frontmatter of .prompt.md files and provides a standardized format for prompt cataloging.",
   "type": "object",
-  "required": ["mode", "description", "version"],
+  "required": ["mode", "description", "version", "tags", "stack"],
   "properties": {
     "mode": {
       "type": "string",

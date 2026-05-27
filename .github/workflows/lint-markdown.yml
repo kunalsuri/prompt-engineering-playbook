@@ -3,10 +3,20 @@ name: Lint Markdown
 on:
   push:
     branches: [main]
-    paths: ['**/*.md']
+    paths:
+      - '**/*.md'
+      - 'references.md'
+      - 'scripts/check-citations.py'
+      - 'scripts/lint-copilot-instructions.sh'
+      - 'scripts/lint-prompt-frontmatter.sh'
   pull_request:
     branches: [main]
-    paths: ['**/*.md']
+    paths:
+      - '**/*.md'
+      - 'references.md'
+      - 'scripts/check-citations.py'
+      - 'scripts/lint-copilot-instructions.sh'
+      - 'scripts/lint-prompt-frontmatter.sh'
 
 permissions:
   contents: read
@@ -50,18 +60,43 @@ jobs:
             chars=$(wc -c < "$file")
             est_tokens=$((chars / 4))
             if [ "$est_tokens" -gt "$MAX_TOKENS" ]; then
-              echo "WARN: $file ≈ $est_tokens tokens (limit: $MAX_TOKENS)"
+              echo "FAIL: $file ≈ $est_tokens tokens (limit: $MAX_TOKENS)"
               exit_code=1
             fi
           done
           if [ "$exit_code" -eq 1 ]; then
             echo ""
             echo "One or more prompt files exceed the estimated token budget."
-            echo "This is a warning — large prompts may consume excessive context window space."
-            echo "Consider decomposing large prompts or moving shared content to referenced files."
+            echo "Large prompts may consume excessive context window space and reduce model effectiveness."
+            echo "Fix: decompose the prompt or move shared content to copilot-instructions.md or prompts/shared/."
           fi
-          # Token budget is advisory, not blocking — always exit 0
-          exit 0
+          exit "$exit_code"
+
+  citation-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Verify all [CitationKey] references in learn/ exist in references.md
+        # Uses only stdlib (re, pathlib, sys) -- no pip install required.
+        # Pattern: [AuthorYear] or [AuthorYeara] (e.g. [Brown2020], [OWASP2025])
+        # Keys must be defined as **[AuthorYear]** (bold) in references.md.
+        run: python scripts/check-citations.py
+
+  copilot-instructions-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Validate prompts/*/copilot-instructions.md structure
+        # Checks each stack's always-active system prompt for:
+        #   1. H1 title present
+        #   2. At least 3 H2 sections
+        #   3. Negative-constraint keyword (never/avoid/do not/must not/prohibited)
+        #   4. Minimum 300 characters (guards against near-empty stubs)
+        run: |
+          chmod +x scripts/lint-copilot-instructions.sh
+          ./scripts/lint-copilot-instructions.sh
 
   docs-sync-check:
     runs-on: ubuntu-latest
