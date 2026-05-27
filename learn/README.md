@@ -6,7 +6,7 @@ A structured, seven-module curriculum for mastering prompt engineering — from 
 
 | Sub-folder / File | Contents |
 |---|---|
-| `00–06-*.md` | Seven curriculum modules (read in order) |
+| `00-06-*.md` | Seven curriculum modules (read in order) |
 | `comparisons/` | Research-backed deep dives on specific techniques |
 | `prompt-examples/` | Worked examples for each pattern from the modules |
 | `labs/` | Six runnable Python experiments + failure gallery |

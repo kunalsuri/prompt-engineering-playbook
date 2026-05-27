@@ -113,7 +113,7 @@ prompt-engineering-playbook/
 │
 ├── learn/                     🎓 Seven-module curriculum
 │   ├── 00-orientation.md      ← Story-first on-ramp (no jargon, no code)
-│   ├── 01–06-*.md             ← Core modules (Introduction → Agentic Patterns)
+│   ├── 01-06-*.md             ← Core modules (Introduction → Agentic Patterns)
 │   ├── comparisons/           ← Research-backed technique comparisons (CoT, ReAct, Few-Shot…)
 │   ├── prompt-examples/       ← Worked examples for each pattern
 │   ├── labs/                  ← Six runnable Python experiments + failure gallery
