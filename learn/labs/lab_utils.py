@@ -18,6 +18,7 @@ import json
 import os
 import re
 import sys
+from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
@@ -158,39 +159,71 @@ def _mock_plan() -> str:
     return "1. Define core concepts\n2. Compare approaches\n3. Provide concrete examples\n4. Summarize practical takeaways"
 
 
-def _mock_text_response(system: str, user: str) -> str:
-    system_lower = system.lower()
-    user_lower = user.lower()
-
-    if "sentiment classifier" in system_lower:
-        return _mock_sentiment(user)
-
-    if "math tutor" in system_lower:
-        return _mock_math_response(user, with_trace="answer:" in user_lower)
-
-    if "strict technical writing evaluator" in system_lower:
-        return _mock_specificity_eval()
-
-    if "strict email marketing evaluator" in system_lower:
-        return _mock_judge_json()
-
-    if "product data extraction assistant" in system_lower and "json" in user_lower:
+def _make_product_handler() -> Callable[[str, str], str]:
+    def _handler(system: str, user: str) -> str:
+        if "json" not in user.lower():
+            return "Mock response generated for deterministic CI validation."
         desc_match = re.search(r"product description:\n(.*)$", user, re.IGNORECASE | re.DOTALL)
         description = desc_match.group(1).strip() if desc_match else user
         return json.dumps(_extract_product_data(description))
+    return _handler
 
-    if "planning agent" in system_lower:
-        return _mock_plan()
 
-    if "execution agent" in system_lower:
-        return "This step is executed with concrete details and practical examples for the target audience."
+# Dispatch table for _mock_text_response.
+# Each entry: (compiled pattern to match against the *system* prompt, handler).
+# Using pre-compiled regexes with fuzzy alternatives makes the mock resilient to
+# minor wording changes in lab prompts (e.g., "Sentiment Classifier Bot" vs
+# "sentiment classifier system").
+_MOCK_RULES: list[tuple[re.Pattern[str], Callable[[str, str], str]]] = [
+    (
+        re.compile(r"sentiment.{0,30}classif|classif.{0,30}sentiment", re.IGNORECASE),
+        lambda s, u: _mock_sentiment(u),
+    ),
+    (
+        re.compile(r"math.{0,20}tutor|tutor.{0,20}math", re.IGNORECASE),
+        lambda s, u: _mock_math_response(u, with_trace="answer:" in u.lower()),
+    ),
+    (
+        re.compile(r"technical.{0,20}writing.{0,20}evaluator|writing.{0,20}evaluator", re.IGNORECASE),
+        lambda s, u: _mock_specificity_eval(),
+    ),
+    (
+        re.compile(r"email.{0,20}marketing.{0,20}evaluator|marketing.{0,20}evaluator", re.IGNORECASE),
+        lambda s, u: _mock_judge_json(),
+    ),
+    (
+        re.compile(r"product.{0,20}data.{0,20}extract|extract.{0,20}product", re.IGNORECASE),
+        _make_product_handler(),
+    ),
+    (
+        re.compile(r"planning\s+agent|planner\s+agent", re.IGNORECASE),
+        lambda s, u: _mock_plan(),
+    ),
+    (
+        re.compile(r"execution\s+agent|executor\s+agent", re.IGNORECASE),
+        lambda s, u: "This step is executed with concrete details and practical examples for the target audience.",
+    ),
+    (
+        re.compile(r"synthesis\s+agent|synthesizer\s+agent", re.IGNORECASE),
+        lambda s, u: "## Synthesized Answer\n\nThis response combines the planned steps into a coherent, practical final answer.",
+    ),
+    (
+        re.compile(r"helpful.{0,20}writing.{0,20}assistant|writing.{0,20}assistant", re.IGNORECASE),
+        lambda s, u: "## Python Testing Guide\n\nUse pytest for unit and integration tests with clear Arrange-Act-Assert structure.",
+    ),
+]
 
-    if "synthesis agent" in system_lower:
-        return "## Synthesized Answer\n\nThis response combines the planned steps into a coherent, practical final answer."
 
-    if "helpful writing assistant" in system_lower:
-        return "## Python Testing Guide\n\nUse pytest for unit and integration tests with clear Arrange-Act-Assert structure."
+def _mock_text_response(system: str, user: str) -> str:
+    """Route mock responses via pre-compiled regex dispatch table (_MOCK_RULES).
 
+    Patterns match against the *system* prompt with fuzzy alternatives, making
+    the mock resilient to minor wording changes in lab prompts without requiring
+    exact string coupling between mock logic and prompt text.
+    """
+    for pattern, handler in _MOCK_RULES:
+        if pattern.search(system):
+            return handler(system, user)
     return "Mock response generated for deterministic CI validation."
 
 
