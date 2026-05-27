@@ -43,7 +43,7 @@ check_file() {
     # ------------------------------------------------------------------
     local first_nonblank_line
     first_nonblank_line="$(grep -m1 -E '[^[:space:]]' "$file" || true)"
-    if [[ ! "$first_nonblank_line" =~ ^#\  ]]; then
+    if ! grep -qE '^# ' <<< "$first_nonblank_line"; then
         echo "  FAIL [$file] Missing H1 title (first non-blank line must start with '# ')"
         errors=$((errors + 1))
     fi
