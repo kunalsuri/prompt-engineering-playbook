@@ -1,0 +1,29 @@
+# pyproject.toml — Prompt Engineering Playbook
+#
+# This repository is an educational content repo, not a Python package.
+# This file exists only to configure the test + coverage tooling for the
+# validation/tooling scripts under scripts/ and learn/labs/.
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-ra"
+# Make the script + lab modules importable from tests without packaging them.
+pythonpath = ["scripts", "learn/labs", "tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["scripts", "learn/labs"]
+omit = [
+  "learn/labs/lab_0*.py",  # lab driver scripts are exercised by notebook smoke tests
+  "scripts/*/setup.sh",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+  "pragma: no cover",
+  "if __name__ == .__main__.:",
+  "raise SystemExit",
+]

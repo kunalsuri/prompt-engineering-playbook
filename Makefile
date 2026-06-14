@@ -112,15 +112,50 @@ serve: venv-check sync ## Sync docs_src/, then start the MkDocs dev server (live
 # ─── Lint ────────────────────────────────────────────────────────────────────
 
 .PHONY: lint
-lint:           ## Run all prompt-file linters (frontmatter + cross-link + required sections)
+lint:           ## Run structural linters (prompt frontmatter + copilot-instructions)
 	./scripts/lint-prompt-frontmatter.sh
+	./scripts/lint-copilot-instructions.sh
 
 .PHONY: validate
-validate: venv-check ## Run the full YAML schema validator for prompt files
+validate: venv-check ## Validate .prompt.md YAML frontmatter against the JSON schema
 	$(VENV)/python scripts/validate-prompt-schema.py
+
+.PHONY: citations
+citations:      ## Verify every [CitationKey] in learn/ is defined in references.md
+	python3 scripts/check-citations.py
+
+.PHONY: crosslinks
+crosslinks:     ## Verify every prompt cross-link resolves (target file + heading anchor)
+	python3 scripts/check-prompt-crosslinks.py
+
+.PHONY: lab-sync
+lab-sync:       ## Verify lab .py/.ipynb pairs stay in sync (imports + prompt constants)
+	python3 scripts/check-lab-sync.py
+
+.PHONY: shellcheck
+shellcheck:     ## Static-analyse shell scripts (skips with a warning if shellcheck absent)
+	@if command -v shellcheck >/dev/null 2>&1; then \
+	  shellcheck scripts/*.sh scripts/*/*.sh && echo "shellcheck PASSED."; \
+	else \
+	  echo "WARNING: shellcheck not installed; skipping. Install it for full coverage."; \
+	fi
+
+# ─── Test ────────────────────────────────────────────────────────────────────
+
+.PHONY: test
+test: venv-check ## Run the pytest tooling test-suite with coverage
+	$(VENV)/python -m pytest --cov --cov-report=term-missing
+
+.PHONY: smoke
+smoke: venv-check ## Execute lab notebooks as deterministic smoke tests (no API calls)
+	LABS_SKIP_API=1 LLM_MODEL=mock-labs $(VENV)/python scripts/run-notebook-smoke.py
 
 # ─── Composite ───────────────────────────────────────────────────────────────
 
 .PHONY: check
-check: venv-check lint validate sync-check recursive-symlink-check build  ## Run full checks including docs build
+check: venv-check lint validate citations crosslinks lab-sync test sync-check recursive-symlink-check build  ## Run the full check suite (everything except notebook smoke)
 	@echo "All checks passed."
+
+.PHONY: check-all
+check-all: check smoke ## check + notebook smoke tests (full local/CI parity)
+	@echo "All checks (including notebook smoke) passed."

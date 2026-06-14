@@ -1,0 +1,6 @@
+# ShellCheck configuration for the repository's shell scripts.
+#
+# SC1091: "Not following: <file> was not specified as input."
+# We intentionally `source` runtime-only files (e.g. .venv/bin/activate) that do
+# not exist at lint time. Following them is neither possible nor useful in CI.
+disable=SC1091

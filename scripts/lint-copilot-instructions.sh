@@ -92,9 +92,15 @@ check_file() {
 echo "copilot-instructions lint"
 echo "========================="
 
-shopt -s nullglob
-files=("$REPO_ROOT"/prompts/*/copilot-instructions.md)
-shopt -u nullglob
+# Explicit file arguments win (used by the test suite); otherwise discover the
+# always-active instruction file for every stack under prompts/.
+if [ "$#" -gt 0 ]; then
+    files=("$@")
+else
+    shopt -s nullglob
+    files=("$REPO_ROOT"/prompts/*/copilot-instructions.md)
+    shopt -u nullglob
+fi
 
 if [ "${#files[@]}" -eq 0 ]; then
     echo "WARNING: No prompts/*/copilot-instructions.md files found."

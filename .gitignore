@@ -12,6 +12,12 @@ __pycache__/
 .mypy_cache/
 .ipynb_checkpoints/
 
+# Test coverage
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
 # Virtual environments
 .venv/
 venv/

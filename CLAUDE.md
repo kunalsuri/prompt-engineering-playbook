@@ -144,8 +144,8 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 | Workflow | Trigger | What it checks |
 |---|---|---|
-| `lint-markdown.yml` | push/PR on `*.md` | Links, frontmatter lint, token budget, docs sync, recursive symlinks, docs build |
-| `quality-nonmarkdown.yml` | push/PR on scripts/notebooks/config | `make check` + notebook smoke tests |
+| `lint-markdown.yml` | push/PR on `*.md` | Links, frontmatter lint, token budget, citations, prompt cross-links, copilot-instructions lint, docs sync, recursive symlinks, docs build |
+| `quality-nonmarkdown.yml` | push/PR on scripts/tests/notebooks/config | `make check` (validators + `pytest` suite), lab-sync, notebook smoke tests, `shellcheck` |
 | `deploy-docs.yml` | push to `main` (docs paths) | Builds & deploys MkDocs to GitHub Pages |
 | `link-check-external.yml` | Weekly Monday 08:00 UTC | External URL liveness check |
 | `security-dependencies.yml` | scheduled | Dependency CVE scan |
@@ -154,13 +154,23 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## Testing Strategy
 
-This repo has no traditional unit tests. Quality is enforced through:
+This repo has no application code, so "tests" are content validators plus a
+`pytest` suite (`tests/`) that tests those validators. Quality is enforced through:
 
 1. **Frontmatter linting** — `scripts/lint-prompt-frontmatter.sh` (bash, structural check)
-2. **Schema validation** — `scripts/validate-prompt-schema.py` (Python, JSON Schema draft 2020-12)
-3. **Notebook smoke tests** — `scripts/run-notebook-smoke.py` with `_MockClient` (no API calls)
-4. **Link checking** — internal (MLC) and external (Lychee) broken link detection
-5. **Docs build** — `mkdocs build --strict` catches rendering/navigation errors
+2. **Copilot-instructions linting** — `scripts/lint-copilot-instructions.sh` (bash, structural check)
+3. **Schema validation** — `scripts/validate-prompt-schema.py` (Python, JSON Schema draft 2020-12)
+4. **Citation check** — `scripts/check-citations.py` (every `[Key]` in `learn/` is defined in `references.md`)
+5. **Cross-link check** — `scripts/check-prompt-crosslinks.py` (each prompt's "Learn why this works" link resolves to a real file + heading anchor)
+6. **Lab sync check** — `scripts/check-lab-sync.py` (`.py`/`.ipynb` parity)
+7. **Notebook smoke tests** — `scripts/run-notebook-smoke.py` with `_MockClient` (no API calls)
+8. **`pytest` tooling suite** — `tests/` exercises every validator above (incl. failure paths) and `lab_utils.py`; run with `make test` (coverage via `pytest-cov`)
+9. **`shellcheck`** — static analysis of shell scripts (config in `.shellcheckrc`)
+10. **Link checking** — internal (MLC) and external (Lychee) broken link detection
+11. **Docs build** — `mkdocs build --strict` catches rendering/navigation errors
+
+`make check` runs 1–6 + 8–11; `make check-all` additionally runs the notebook
+smoke tests (7). See `tests/README.md` for details.
 
 ---
 

@@ -5,7 +5,9 @@
 #   2. Learn↔prompts cross-link  ("> **Learn why this works:**")
 #   3. Required body sections:    # Role, # Task, # Output Format
 #
-# Usage:  ./scripts/lint-prompt-frontmatter.sh
+# Usage:  ./scripts/lint-prompt-frontmatter.sh [file ...]
+#         With no arguments, every prompts/**/*.prompt.md file is checked.
+#         File arguments (used by the test suite) restrict the run to those files.
 # Exit:   0 if all files pass, 1 if any file fails.
 
 set -euo pipefail
@@ -14,6 +16,15 @@ REQUIRED_FIELDS=("mode" "description" "version")
 REQUIRED_SECTIONS=("# Role" "# Task" "# Output Format")
 ERRORS=0
 CHECKED=0
+
+# Build the file list: explicit args win; otherwise discover under prompts/.
+emit_files() {
+  if [[ "$#" -gt 0 ]]; then
+    printf '%s\0' "$@"
+  else
+    find prompts -name '*.prompt.md' -print0
+  fi
+}
 
 while IFS= read -r -d '' file; do
   CHECKED=$((CHECKED + 1))
@@ -65,7 +76,7 @@ while IFS= read -r -d '' file; do
     echo "OK:   $file"
   fi
 
-done < <(find prompts -name '*.prompt.md' -print0)
+done < <(emit_files "$@")
 
 echo ""
 echo "Checked $CHECKED prompt file(s)."

@@ -170,10 +170,10 @@ def main() -> None:
     print(f"\n{'='*50}")
     print(f"Results: {passed}/{total} passed, {failed} failed")
 
-    # Note: currently only mode/description/version are required in the schema.
-    # Other fields (tags, patterns, etc.) are optional, so existing prompts
-    # with only mode/description/version will pass validation.
-    # As the team adopts richer metadata, the schema can be tightened.
+    # The schema (prompts/shared/prompt-registry.schema.json) requires
+    # mode, description, version, tags, and stack, and forbids unknown keys
+    # (additionalProperties: false). Optional richer metadata (patterns,
+    # changelog, model_compatibility, ...) is validated when present.
 
     sys.exit(0 if failed == 0 else 1)
 

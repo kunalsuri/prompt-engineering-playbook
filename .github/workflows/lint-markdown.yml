@@ -7,6 +7,7 @@ on:
       - '**/*.md'
       - 'references.md'
       - 'scripts/check-citations.py'
+      - 'scripts/check-prompt-crosslinks.py'
       - 'scripts/lint-copilot-instructions.sh'
       - 'scripts/lint-prompt-frontmatter.sh'
   pull_request:
@@ -15,6 +16,7 @@ on:
       - '**/*.md'
       - 'references.md'
       - 'scripts/check-citations.py'
+      - 'scripts/check-prompt-crosslinks.py'
       - 'scripts/lint-copilot-instructions.sh'
       - 'scripts/lint-prompt-frontmatter.sh'
 
@@ -82,6 +84,17 @@ jobs:
         # Pattern: [AuthorYear] or [AuthorYeara] (e.g. [Brown2020], [OWASP2025])
         # Keys must be defined as **[AuthorYear]** (bold) in references.md.
         run: python scripts/check-citations.py
+
+  prompt-crosslink-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Verify prompt "Learn why this works" cross-links resolve
+        # Uses only stdlib -- no pip install required.
+        # Resolves each cross-link's target file AND #anchor (GFM heading slug),
+        # catching dangling links the frontmatter linter only checks for presence.
+        run: python scripts/check-prompt-crosslinks.py
 
   copilot-instructions-lint:
     runs-on: ubuntu-latest

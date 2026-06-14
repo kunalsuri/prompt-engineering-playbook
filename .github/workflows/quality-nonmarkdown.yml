@@ -6,22 +6,28 @@ on:
     paths:
       - 'Makefile'
       - 'mkdocs.yml'
+      - 'pyproject.toml'
+      - '.shellcheckrc'
       - 'requirements-*.txt'
       - 'learn/labs/requirements.txt'
       - 'learn/labs/**/*.py'
       - 'learn/labs/**/*.ipynb'
       - 'scripts/**'
+      - 'tests/**'
       - '.github/workflows/**'
   pull_request:
     branches: [main]
     paths:
       - 'Makefile'
       - 'mkdocs.yml'
+      - 'pyproject.toml'
+      - '.shellcheckrc'
       - 'requirements-*.txt'
       - 'learn/labs/requirements.txt'
       - 'learn/labs/**/*.py'
       - 'learn/labs/**/*.ipynb'
       - 'scripts/**'
+      - 'tests/**'
       - '.github/workflows/**'
 
 permissions:
@@ -46,6 +52,9 @@ jobs:
           .venv/bin/pip install -r requirements-docs.txt -r requirements-dev.txt
 
       - name: Run repository checks
+        # `make check` now runs: structural linters, schema validation, citation
+        # check, cross-link resolution, lab-sync, the pytest tooling suite (with
+        # coverage), symlink checks, and the docs build.
         run: make check
 
   lab-sync:
@@ -88,3 +97,14 @@ jobs:
           LABS_SKIP_API: '1'
           LLM_MODEL: 'mock-labs'
         run: python scripts/run-notebook-smoke.py
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Static-analyse shell scripts
+        # shellcheck is preinstalled on ubuntu-latest runners.
+        # Configuration (disabled rules) lives in .shellcheckrc.
+        run: shellcheck scripts/*.sh scripts/*/*.sh
